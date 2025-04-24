@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/common/Navbar';
 import Login from './auth/Login';
 import Register from './auth/Register';
+import Sidebar from './Sidebar';
 // Import other components as needed
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<h1>Welcome to the Business ERP System</h1>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/menu" element={<Sidebar />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

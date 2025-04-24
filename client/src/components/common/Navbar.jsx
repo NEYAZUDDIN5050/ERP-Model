@@ -14,6 +14,9 @@ const Navbar = () => {
         <li>
           <Link to="/register" className="text-white">Register</Link>
         </li>
+        <li>
+          <Link to="/menu" className="text-white">menu</Link>
+        </li>
         {/* Add more links as needed */}
       </ul>
     </nav>
