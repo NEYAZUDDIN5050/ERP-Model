@@ -10,7 +10,10 @@ const Finance = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">Finance Overview</h1>
+      <div className='flex p-3'>
+      <h1 className="text-3xl text-center   font-bold mb-4 bg-gray-500 w-70 h-10 rounded-3xl">Finance Overview</h1>
+      <button className='space-x-8 ml-auto m-4 bg-red-500  hover:bg-red-600 text-white text-center font-semibold py-1 px-3 rounded shadow'>back</button>
+      </div>
       <FinancialReports incomeData={incomeData} expenseData={expenseData} />
       <IncomeExpenseTracker setIncomeData={setIncomeData} setExpenseData={setExpenseData} />
       <InvoiceTracking />
