@@ -57,7 +57,7 @@ return (
                onChange={(e) => ConfirmPassward(e.target.value)}
                className="border  mb-4 w-full  p-3"
                />
-               <button type="submit" className="bg-blue-500 text-white p-2 w-full">Login</button>
+               <button type="submit" className="bg-gray-700 text-white p-2 w-full">Login</button>
                {/*<a
                className="text-black to-red-500 hover:text-blue-700 hover:underline hover:underline-offset-4 p-3"
                href="#"
@@ -67,7 +67,7 @@ return (
                */}
              <button
                type="button"
-               className="  mx-6 h-7 w-7 rounded-full  bg-blue-400 hover:bg-blue-700  text-blue shadow-[0_4px_9px_-4px_#3b71ca]">
+               className="  mx-6 h-7 w-7 rounded-full  bg-gray-700 hover:bg-gray-800  text-blue shadow-[0_4px_9px_-4px_#3b71ca]">
                 <BiLogoFacebook
              
                  size={30}
@@ -75,7 +75,7 @@ return (
              </button>
              <button
                type="button"
-               className="inlne-block m h-7 w-7 rounded-full bg-blue-400 hover:bg-blue-700 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
+               className="inlne-block m h-7 w-7 rounded-full bg-gray-700 hover:bg-gray-800 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
              ><AiOutlineTwitter
                
                  size={30}
