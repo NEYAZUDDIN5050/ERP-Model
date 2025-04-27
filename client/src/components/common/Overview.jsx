@@ -49,30 +49,30 @@ const Overview = () => {
     <div className=" ">
       <img src="https://media.licdn.com/dms/image/v2/D4D12AQGGCkd_ryYgYw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1657715061792?e=2147483647&v=beta&t=0cOTKbkFg67hWDuiOy_oEJMtW287UR5L3WlTH0gmf64" alt="img" className='mb-20' />
       {/* Status Cards */}<div className='w-full  gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10'>
-      <div className="bg-white p-3 rounded shadow">
-        <h2 className="text-xl font-bold">Total Revenue</h2>
-        <p className="text-2xl">$100,000</p>
-      </div>
-      <div className="bg-white p-3 rounded shadow">
-        <h2 className="text-xl font-bold">Total Expenses</h2>
-        <p className="text-2xl">$50,000</p>
-      </div>
-      <div className="bg-white p-3 rounded shadow">
-        <h2 className="text-xl font-bold">Net Profit</h2>
-        <p className="text-2xl">$50,000</p>
-      </div>
-      <div className="bg-white p-3 rounded shadow">
-        <h2 className="text-xl font-bold">Total Users</h2>
-        <p className="text-2xl">1,200</p>
-      </div>
-      <div className="bg-white p-3 rounded shadow">
-        <h2 className="text-xl font-bold">Active Projects</h2>
-        <p className="text-2xl">15</p>
-      </div>
-      <div className="bg-white p-3 rounded shadow">
-        <h2 className="text-xl font-bold">Pending Orders</h2>
-        <p className="text-2xl">30</p>
-      </div>
+        <div className="bg-white p-3 rounded shadow">
+          <h2 className="text-xl font-bold">Total Revenue</h2>
+          <p className="text-2xl">$100,000</p>
+        </div>
+        <div className="bg-white p-3 rounded shadow">
+          <h2 className="text-xl font-bold">Total Expenses</h2>
+          <p className="text-2xl">$50,000</p>
+        </div>
+        <div className="bg-white p-3 rounded shadow">
+          <h2 className="text-xl font-bold">Net Profit</h2>
+          <p className="text-2xl">$50,000</p>
+        </div>
+        <div className="bg-white p-3 rounded shadow">
+          <h2 className="text-xl font-bold">Total Users</h2>
+          <p className="text-2xl">1,200</p>
+        </div>
+        <div className="bg-white p-3 rounded shadow">
+          <h2 className="text-xl font-bold">Active Projects</h2>
+          <p className="text-2xl">15</p>
+        </div>
+        <div className="bg-white p-3 rounded shadow">
+          <h2 className="text-xl font-bold">Pending Orders</h2>
+          <p className="text-2xl">30</p>
+        </div>
       </div>
 
       {/* Chart */}
