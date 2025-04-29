@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaMoneyBillWave, FaUsers, FaIndustry, FaTruck, FaClipboardList, FaShoppingCart, FaChartLine, FaWarehouse } from 'react-icons/fa';
+import { BsColumnsGap } from "react-icons/bs";
 
 const Sidebar = () => {
   return (
@@ -9,8 +10,8 @@ const Sidebar = () => {
       <div className=" text-2xl font-bold"></div>
       <ul className="mt-6">
         <li>
-          <Link to="/" className="flex m-2 items-center p-1 hover:bg-gray-700">
-            <FaHome className="mr-2 " /> Home
+          <Link to="/About" className="flex m-2 items-center p-1 hover:bg-gray-700">
+            <BsColumnsGap className="mr-2 " /> About 
           </Link>
         </li>
         <li>
