@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../redux/actions'; // Make sure you import the action
+//import { registerUser } from '../../redux/actions'; // Make sure you import the action
 
 const Register = () => {
   const [name, setName] = useState('');
