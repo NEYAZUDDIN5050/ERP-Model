@@ -11,7 +11,7 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="flex space-x-8 ml-auto">
-        <Link to="/dashboard" className="text-white hover:underline">Dashboard</Link>
+          <Link to="/dashboard" className="text-white hover:underline">Dashboard</Link>
           <Link to="/About" className="text-white hover:underline">About</Link>
           <Link to="/register" className="text-white hover:underline">Register</Link>
           <Link to="/login" className="text-white hover:underline">Login</Link>

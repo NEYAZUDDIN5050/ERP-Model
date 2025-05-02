@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaMoneyBillWave, FaUsers, FaIndustry, FaTruck, FaClipboardList, FaShoppingCart, FaChartLine, FaWarehouse } from 'react-icons/fa';
 import { BsColumnsGap } from "react-icons/bs";
 
+
 const Sidebar = () => {
   return (
     <div className="bg-white  text-black w-64 h-full pt-13 fixed">

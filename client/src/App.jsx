@@ -12,6 +12,8 @@ import CRM from './crm/CRM'
 import Inventory from './inventory/Inventory';
 import SCM from './scm/SCM';
 import About from './components/About'
+//Pages
+
 
 
 const App = () => {
@@ -27,9 +29,10 @@ const App = () => {
         <Route path="/sales" element={<Sales />} />
         <Route path="/crm" element={<CRM />} />
         <Route path="/inventory" element={<Inventory />} />
-        <Route path="/scm" element={<SCM />} />
+        <Route path="/scm/*" element={<SCM />} />
         <Route path="/About" element={<About />} />
         {/* Add more routes as needed */}
+        
       </Routes>
     </Router>
   );

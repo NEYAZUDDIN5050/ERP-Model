@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DeliveryScheduling = () => {
+const DeliverySchedulingPage = () => {
   const [deliveries, setDeliveries] = useState([]);
   const [newDelivery, setNewDelivery] = useState({
     orderId: '',
@@ -82,4 +82,4 @@ const DeliveryScheduling = () => {
   );
 };
 
-export default DeliveryScheduling;
+export default DeliverySchedulingPage;
