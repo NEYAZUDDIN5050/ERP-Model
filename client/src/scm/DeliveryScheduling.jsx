@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DeliveryScheduling = () => {
   const [deliveries, setDeliveries] = useState([]);
   const [newDelivery, setNewDelivery] = useState({
     orderId: '',
     deliveryDate: '',
-    status: 'Scheduled', // 'Scheduled', 'In Transit', 'Delivered'
+    status: 'Scheduled',
   });
+
+  const navigate = useNavigate();
 
   const handleDeliverySubmit = (e) => {
     e.preventDefault();
@@ -19,12 +22,20 @@ const DeliveryScheduling = () => {
         status,
       };
       setDeliveries([...deliveries, delivery]);
-      setNewDelivery({ orderId: '', deliveryDate: '', status: 'Scheduled' }); // Reset form
+      setNewDelivery({ orderId: '', deliveryDate: '', status: 'Scheduled' });
     }
   };
 
   return (
     <div className="bg-white p-4 rounded shadow mb-6">
+      {/* ✅ Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded"
+      >
+        ← Back
+      </button>
+
       <h2 className="text-xl font-bold">Delivery Scheduling</h2>
       <form onSubmit={handleDeliverySubmit} className="mt-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

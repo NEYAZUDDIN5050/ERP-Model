@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LeaveRequests = () => {
+  const navigate = useNavigate();
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [newLeaveRequest, setNewLeaveRequest] = useState({
     employeeName: '',
     leaveType: '',
     startDate: '',
     endDate: '',
-    status: 'Pending', // 'Pending', 'Approved', 'Rejected'
+    status: 'Pending',
   });
 
   const handleLeaveRequestSubmit = (e) => {
@@ -23,19 +25,43 @@ const LeaveRequests = () => {
         status: 'Pending',
       };
       setLeaveRequests([...leaveRequests, request]);
-      setNewLeaveRequest({ employeeName: '', leaveType: '', startDate: '', endDate: '', status: 'Pending' }); // Reset form
+      setNewLeaveRequest({
+        employeeName: '',
+        leaveType: '',
+        startDate: '',
+        endDate: '',
+        status: 'Pending',
+      });
     }
   };
 
   return (
     <div className="bg-white p-4 rounded shadow mb-6">
+      {/* Navigation Buttons */}
+      <div className="flex gap-4 mb-4">
+        <button
+          onClick={() => navigate('/hr')}
+          className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+        >
+          ← Back to HR
+        </button>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+
       <h2 className="text-xl font-bold">Leave Requests</h2>
       <form onSubmit={handleLeaveRequestSubmit} className="mt-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <input
             type="text"
             value={newLeaveRequest.employeeName}
-            onChange={(e) => setNewLeaveRequest({ ...newLeaveRequest, employeeName: e.target.value })}
+            onChange={(e) =>
+              setNewLeaveRequest({ ...newLeaveRequest, employeeName: e.target.value })
+            }
             placeholder="Employee Name"
             className="border p-2 rounded"
             required
@@ -43,7 +69,9 @@ const LeaveRequests = () => {
           <input
             type="text"
             value={newLeaveRequest.leaveType}
-            onChange={(e) => setNewLeaveRequest({ ...newLeaveRequest, leaveType: e.target.value })}
+            onChange={(e) =>
+              setNewLeaveRequest({ ...newLeaveRequest, leaveType: e.target.value })
+            }
             placeholder="Leave Type"
             className="border p-2 rounded"
             required
@@ -51,14 +79,18 @@ const LeaveRequests = () => {
           <input
             type="date"
             value={newLeaveRequest.startDate}
-            onChange={(e) => setNewLeaveRequest({ ...newLeaveRequest, startDate: e.target.value })}
+            onChange={(e) =>
+              setNewLeaveRequest({ ...newLeaveRequest, startDate: e.target.value })
+            }
             className="border p-2 rounded"
             required
           />
           <input
             type="date"
             value={newLeaveRequest.endDate}
-            onChange={(e) => setNewLeaveRequest({ ...newLeaveRequest, endDate: e.target.value })}
+            onChange={(e) =>
+              setNewLeaveRequest({ ...newLeaveRequest, endDate: e.target.value })
+            }
             className="border p-2 rounded"
             required
           />

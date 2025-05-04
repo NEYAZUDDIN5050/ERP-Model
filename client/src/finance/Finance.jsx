@@ -1,22 +1,56 @@
-// src/components/finance/Finance.jsx
-import React, { useState } from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import FinancialReports from './FinancialReports';
 import IncomeExpenseTracker from './IncomeExpenseTracker';
 import InvoiceTracking from './InvoiceTracking';
 
 const Finance = () => {
-  const [incomeData, setIncomeData] = useState([3000, 4000, 3500, 5000, 4500, 6000, 7000]);
-  const [expenseData, setExpenseData] = useState([2000, 2500, 3000, 3500, 3000, 4000, 4500]);
+  const navigate = useNavigate();
 
   return (
-    <div>
-      <div className='flex p-3'>
-      <h1 className="text-3xl text-center   font-bold mb-4 bg-gray-500 w-70 h-10 rounded-3xl">Finance Overview</h1>
-      <button className='space-x-8 ml-auto m-4 bg-red-500  hover:bg-red-600 text-white text-center font-semibold py-1 px-3 rounded shadow'>back</button>
+    <div className="bg-gray-50 min-h-screen p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">Finance Overview</h1>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
+        >
+          ← Back to Dashboard
+        </button>
       </div>
-      <FinancialReports incomeData={incomeData} expenseData={expenseData} />
-      <IncomeExpenseTracker setIncomeData={setIncomeData} setExpenseData={setExpenseData} />
-      <InvoiceTracking />
+
+      {/* Navigation Links */}
+      <nav className="bg-white p-4 rounded shadow mb-6">
+        <ul className="flex gap-8 text-lg text-indigo-600 font-medium">
+          <li>
+            <Link to="/finance/financial-reports" className="hover:underline">
+              Financial Reports
+            </Link>
+          </li>
+          <li>
+            <Link to="/finance/income-expense-tracker" className="hover:underline">
+              Income/Expense Tracker
+            </Link>
+          </li>
+          <li>
+            <Link to="/finance/invoice-tracking" className="hover:underline">
+              Invoice Tracking
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      {/* Routes */}
+      <div className="bg-white p-6 rounded shadow">
+        <Routes>
+          <Route path="financial-reports" element={<FinancialReports />} />
+          <Route path="income-expense-tracker" element={<IncomeExpenseTracker />} />
+          <Route path="invoice-tracking" element={<InvoiceTracking />} />
+          <Route
+            path=""
+            element={<div className="text-center text-gray-500">👋 Welcome to the Finance Section</div>}
+          />
+        </Routes>
+      </div>
     </div>
   );
 };

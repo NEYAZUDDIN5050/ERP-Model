@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FinancialReports = ({ incomeData, expenseData }) => {
+const FinancialReports = ({ incomeData = [], expenseData = [] }) => {
   const totalIncome = incomeData.reduce((a, b) => a + b, 0);
   const totalExpenses = expenseData.reduce((a, b) => a + b, 0);
   const netProfit = totalIncome - totalExpenses;

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeRecords = () => {
+  const navigate = useNavigate();
+
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState({
     name: '',
@@ -21,14 +24,23 @@ const EmployeeRecords = () => {
         dateOfJoining,
       };
       setEmployees([...employees, employee]);
-      setNewEmployee({ name: '', position: '', department: '', dateOfJoining: '' }); // Reset form
+      setNewEmployee({ name: '', position: '', department: '', dateOfJoining: '' });
     }
   };
 
   return (
     <div className="bg-white p-4 rounded shadow mb-6">
-      <h2 className="text-xl font-bold">Employee Records</h2>
-      <form onSubmit={handleEmployeeSubmit} className="mt-4">
+      <h2 className="text-xl font-bold mb-2">Employee Records</h2>
+      
+      {/* Back Button */}
+      <button
+        onClick={() => navigate('/hr')}
+        className="bg-gray-500 text-white px-4 py-2 rounded mb-4"
+      >
+        ← Back to HR Dashboard
+      </button>
+
+      <form onSubmit={handleEmployeeSubmit} className="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <input
             type="text"
@@ -67,7 +79,6 @@ const EmployeeRecords = () => {
         </button>
       </form>
 
-      {/* Employee Table */}
       <h3 className="text-lg font-bold mt-4">Employees</h3>
       <table className="min-w-full bg-white border border-gray-300 mt-2">
         <thead>

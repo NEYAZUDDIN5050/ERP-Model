@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AttendanceTracking = () => {
+  const navigate = useNavigate();
+
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [newAttendance, setNewAttendance] = useState({
     employeeName: '',
     date: '',
-    status: 'Present', // 'Present' or 'Absent'
+    status: 'Present',
   });
 
   const handleAttendanceSubmit = (e) => {
@@ -19,14 +22,23 @@ const AttendanceTracking = () => {
         status,
       };
       setAttendanceRecords([...attendanceRecords, record]);
-      setNewAttendance({ employeeName: '', date: '', status: 'Present' }); // Reset form
+      setNewAttendance({ employeeName: '', date: '', status: 'Present' });
     }
   };
 
   return (
     <div className="bg-white p-4 rounded shadow mb-6">
-      <h2 className="text-xl font-bold">Attendance Tracking</h2>
-      <form onSubmit={handleAttendanceSubmit} className="mt-4">
+      <h2 className="text-xl font-bold mb-2">Attendance Tracking</h2>
+      
+      {/* Back Button */}
+      <button
+        onClick={() => navigate('/hr')}
+        className="bg-gray-500 text-white px-4 py-2 rounded mb-4"
+      >
+        ← Back to HR Dashboard
+      </button>
+
+      <form onSubmit={handleAttendanceSubmit} className="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <input
             type="text"
@@ -57,7 +69,6 @@ const AttendanceTracking = () => {
         </button>
       </form>
 
-      {/* Attendance Table */}
       <h3 className="text-lg font-bold mt-4">Attendance Records</h3>
       <table className="min-w-full bg-white border border-gray-300 mt-2">
         <thead>
