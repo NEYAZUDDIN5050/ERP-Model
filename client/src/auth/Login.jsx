@@ -1,83 +1,101 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-//import { loginUser } from '../../redux/actions';
+import { useNavigate, Link } from 'react-router-dom';
+// import { loginUser } from '../../redux/actions'; // Uncomment and use your login action
 import { BiLogoFacebook } from "react-icons/bi";
 import { AiOutlineTwitter } from "react-icons/ai";
 
-
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [passward, setPassward] = useState('');
-    const dispatch = useDispatch();
-  
-    const handleSubmit =(e) => {
-        e.preventDefault();
-        dispatch(loginUser({ email,passward }));
-    }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-return (
-    <section className='h-screen bg-white flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0'>
-        <div className='md:w-1/3 max-w-sm'>
-          {/*  <img src="https://img.freepik.com/free-vector/privacy-policy-concept-illustration_114360-7853.jpg?ga=GA1.1.2090728591.1744713562&semt=ais_hybrid&w=740" alt="login img"/> */}
-          <h1>LOGO</h1>
-             <p>DISCRIPTION</p>
-        </div>
-         
-     
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = { email, password };
+    dispatch(loginUser(userData));
+    navigate('/dashboard');
+  };
 
-        <div className='md:w-1/3 max-w-sm'>
-        
-    <form onSubmit={ handleSubmit } className=" max-w-md mx-auto p-5 ">
-        <h2 className="text-4xl mb-4 text-center ">Login</h2>
-            <input 
-            type='email'
-            placeholder="Email"
+  return (
+    <section
+      className="h-screen flex flex-col md:flex-row items-center justify-center bg-cover"
+      style={{
+        backgroundImage:
+          "url('https://image.freepik.com/free-vector/vector-abstract-security-system-concept-with-fingerprint-technology-background_43778-497.jpg')",
+      }}
+    >
+      {/* Left Section */}
+      <div className="md:w-1/2 p-8 flex flex-col items-center text-center">
+        <h1 className="text-3xl font-bold mt-80 text-white">Welcome Back!</h1>
+        <p className="text-sm mt-2 text-gray-300">
+          Securely log in to manage your business with BizERP.
+        </p>
+        <Link to="/" className="mt-6 inline-block text-blue-400 underline">
+          ← Back to Home
+        </Link>
+      </div>
+
+      {/* Right Section - Form */}
+      <div className="md:w-100 p-8">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto w-full"
+        >
+          <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+
+          <input
+            type="email"
+            placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border  p-3 mb-4 w-full"
-            />
-            <input
-            type="passsward"
-            placeholder="Passward"
-            value={passward}
-            onChange={(e) => setPassward(e.target.value)}
-            className="border p-3 mb-4 w-full  "
-            />
-            <button type="submit" className="bg-gray-700 text-white p-2 w-full">Login</button>
-            <a
-            className="text-black to-red-500 hover:text-blue-700 hover:underline hover:underline-offset-4 p-3"
-            href="#"
-          >
-            Forgot Password?
-          </a>
-          <a
-            className="text-black to-red-500 hover:text-blue-700 hover:underline hover:underline-offset-4 p-5"
-            href="#"
-          >
-            Already User
-          </a>
+            className="border p-2 mb-3 w-full rounded"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border p-2 mb-3 w-full rounded"
+            required
+          />
           <button
-            type="button"
-            className="  mx-6 h-7 w-7 rounded-full  bg-gray-700 hover:bg-gray-800  text-blue shadow-[0_4px_9px_-4px_#3b71ca]">
-            <BiLogoFacebook
-              size={30}
-              className="  flex justify-center items-center w-full"/>
-          </button>
-          <button
-            type="button"
-            className="inlne-block m h-7 w-7 rounded-full bg-gray-700 hover:bg-gray-800 uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]"
+            type="submit"
+            className="bg-blue-600 text-white p-2 rounded w-full hover:bg-blue-700 transition"
           >
-            <AiOutlineTwitter
-              size={30}
-              className="flex justify-center items-center w-full"
-            />
+            Login
           </button>
-        
-    </form>
-    </div>
+
+          <div className="flex justify-between mt-4 text-sm">
+            <Link to="#" className="text-blue-600 underline">
+              Forgot Password?
+            </Link>
+            <Link to="/register" className="text-blue-600 underline">
+              Create Account
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-center mt-5 gap-4">
+            <button
+              type="button"
+              className="h-9 w-9 rounded-full bg-gray-700 hover:bg-gray-800 text-white flex items-center justify-center"
+            >
+              <BiLogoFacebook size={20} />
+            </button>
+            <button
+              type="button"
+              className="h-9 w-9 rounded-full bg-gray-700 hover:bg-gray-800 text-white flex items-center justify-center"
+            >
+              <AiOutlineTwitter size={20} />
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
-    
-);
+  );
 };
 
 export default Login;
+

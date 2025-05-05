@@ -4,20 +4,38 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-700 px-6 py-4 fixed w-full z-10">
+    <nav className="bg-blue-100 px-6 py-4 fixed w-full z-10 text-black">
       <div className="flex justify-between items-center">
         {/* Logo or Brand */}
-        <div className="text-white text-2xl font-bold">MyApp</div>
+        <div className=" text-2xl font-bold text-black">MyApp</div>
 
         {/* Navigation Links */}
         <div className="flex space-x-8 ml-auto">
-          <Link to="/dashboard" className="text-white hover:underline">Dashboard</Link>
-          <Link to="/About" className="text-white hover:underline">About</Link>
-          <Link to="/register" className="text-white hover:underline">Register</Link>
-          <Link to="/login" className="text-white hover:underline">Login</Link>
-
-          
-        </div>
+      <button 
+        onClick={() => navigate('/dashboard')} 
+        className="bg-gray-400 rounded-2xl w-25 hover:underline"
+      >
+        Dashboard
+      </button>
+      <button 
+        onClick={() => navigate('/About')} 
+        className="bg-gray-400 rounded-2xl w-20  hover:underline"
+      >
+        About
+      </button>
+      <button 
+        onClick={() => navigate('/register')} 
+        className="bg-gray-400 rounded-2xl w-20  hover:underline"
+      >
+        Register
+      </button>
+      <button 
+        onClick={() => navigate('/login')} 
+        className="bg-gray-400 rounded-2xl w-20 hover:underline"
+      >
+        Login
+      </button>
+    </div>
       </div>
     </nav>
   );

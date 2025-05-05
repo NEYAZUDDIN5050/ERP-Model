@@ -9,7 +9,7 @@ const Finance = () => {
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Finance Overview</h1>
+        <h1 className="text-3xl font-bold bg-gray-400 rounded-2xl w-70 text-center text-gray-800">Finance Overview</h1>
         <button
           onClick={() => navigate('/dashboard')}
           className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
@@ -20,23 +20,23 @@ const Finance = () => {
 
       {/* Navigation Links */}
       <nav className="bg-white p-4 rounded shadow mb-6">
-        <ul className="flex gap-8 text-lg text-indigo-600 font-medium">
-          <li>
-            <Link to="/finance/financial-reports" className="hover:underline">
-              Financial Reports
-            </Link>
-          </li>
-          <li>
-            <Link to="/finance/income-expense-tracker" className="hover:underline">
-              Income/Expense Tracker
-            </Link>
-          </li>
-          <li>
-            <Link to="/finance/invoice-tracking" className="hover:underline">
-              Invoice Tracking
-            </Link>
-          </li>
-        </ul>
+      <div className="container mx-auto px-4 mb-20">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+           
+             <Link to="/finance/financial-reports" className="bg-yellow-300 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+                  <h2 className="text-2xl font-semibold">Financial Report</h2>
+                  <p>Manage your inventory items efficiently and keep track of stock levels.</p>
+                </Link>
+                <Link to="/finance/income-expense-tracker" className="bg-yellow-300 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+                  <h2 className="text-2xl font-semibold">Income & Expense Tracker</h2>
+                  <p>Track and manage your sales transactions and customer orders.</p>
+                </Link>
+                <Link to="/finance/invoice-tracking" className="bg-yellow-300 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+                  <h2 className="text-2xl font-semibold">Invoice Tracking </h2>
+                  <p>Manage your customer information and relationships effectively.</p>
+                </Link>
+         </div>
+         </div>
       </nav>
 
       {/* Routes */}

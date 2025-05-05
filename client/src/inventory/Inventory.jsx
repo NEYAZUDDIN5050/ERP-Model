@@ -8,63 +8,62 @@ const Inventory = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
-       <button
-        onClick={() => navigate('/dashboard')}
-        className="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 mb-6"
-      >
-        ← Back to Dashboard
-      </button>
-        <div className='flex p-3'>
-      <h1 className="text-3xl text-center   font-bold mb-4 bg-gray-500 w-70 h-10 rounded-3xl">Inventory </h1>
-      <button className='space-x-8 ml-auto m-4 bg-red-500  hover:bg-red-600 text-white text-center font-semibold py-1 px-3 rounded shadow'>back</button>
+      {/* Header and Back Button */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold bg-gray-400 rounded-2xl w-70 text-center text-gray-800">Inventory Management</h1>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
+        >
+          ← Back to Dashboard
+        </button>
       </div>
-     
 
-     {/* Navigation Section */}
-           <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
-             <h2 className="text-xl font-medium text-gray-700 mb-4">HR Management</h2>
-             <nav>
-               <ul className="space-y-4">
-                 <li>
-                   <Link
-                     to="/inventory/inventoryTransfer"
-                     className="text-lg text-indigo-600 hover:text-indigo-800 hover:underline transition duration-300"
-                   >
-                     Attendance Tracking
-                   </Link>
-                 </li>
-                 <li>
-                   <Link
-                     to="/inventory/lowStockAlert"
-                     className="text-lg text-indigo-600 hover:text-indigo-800 hover:underline transition duration-300"
-                   >
-                     Employee Records
-                   </Link>
-                 </li>
-                 <li>
-                   <Link
-                     to="/inventory/stockMonitoring"
-                     className="text-lg text-indigo-600 hover:text-indigo-800 hover:underline transition duration-300"
-                   >
-                     Leave Requests
-                   </Link>
-                 </li>
-               </ul>
-             </nav>
-           </div>
-     
+      {/* Navigation Cards */}
+      <nav className="bg-white p-4 rounded shadow mb-6">
+        <div className="container mx-auto px-4 mb-20">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link
+              to="/inventory/inventoryTransfer"
+              className="bg-indigo-400 text-white p-6 rounded-lg shadow-lg hover:bg-indigo-500 transition transform hover:scale-105"
+            >
+              <h2 className="text-2xl font-semibold">Inventory Transfer</h2>
+              <p>Manage and track transfers between warehouses or branches.</p>
+            </Link>
+            <Link
+              to="/inventory/lowStockAlert"
+              className="bg-indigo-400 text-white p-6 rounded-lg shadow-lg hover:bg-indigo-500 transition transform hover:scale-105"
+            >
+              <h2 className="text-2xl font-semibold">Low Stock Alert</h2>
+              <p>Stay updated on low inventory levels and avoid stockouts.</p>
+            </Link>
+            <Link
+              to="/inventory/stockMonitoring"
+              className="bg-indigo-400 text-white p-6 rounded-lg shadow-lg hover:bg-indigo-500 transition transform hover:scale-105"
+            >
+              <h2 className="text-2xl font-semibold">Stock Monitoring</h2>
+              <p>Monitor real-time stock levels and inventory flow.</p>
+            </Link>
+          </div>
+        </div>
+      </nav>
 
-
-     {/*Routes */}
-     <Routes>
-      <Route path="inventoryTransfer" element={<InventoryTransfer />} />
-      <Route path="lowStockAlert" element={<LowStockAlert />} />
-      <Route path="stockMonitoring" element={<StockMonitoring />} />
-      <Route path="" element={
-        <div>welcome to the hr</div>
-      }
-      />
-     </Routes>
+      {/* Routes */}
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <Routes>
+          <Route path="inventoryTransfer" element={<InventoryTransfer />} />
+          <Route path="lowStockAlert" element={<LowStockAlert />} />
+          <Route path="stockMonitoring" element={<StockMonitoring />} />
+          <Route
+            path=""
+            element={
+              <div className="text-center text-gray-600 text-xl">
+                Welcome to the Inventory Section. Please choose an option above.
+              </div>
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
 };

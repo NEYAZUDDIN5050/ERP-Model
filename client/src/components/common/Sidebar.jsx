@@ -10,6 +10,11 @@ const Sidebar = () => {
     <div className="bg-white  text-black w-64 h-full pt-13 fixed">
       <div className=" text-2xl font-bold"></div>
       <ul className="mt-6">
+      <li>
+          <Link to="/Home" className="flex m-2 items-center p-1 hover:bg-gray-700">
+            <BsColumnsGap className="mr-2 " /> Home 
+          </Link>
+        </li>
         <li>
           <Link to="/About" className="flex m-2 items-center p-1 hover:bg-gray-700">
             <BsColumnsGap className="mr-2 " /> About 
@@ -58,8 +63,8 @@ const Sidebar = () => {
           </Link>
           <div className="p-2">
         <Link
-          to="/logout"
-          className="block bg-red-500 hover:bg-red-600 text-white text-center font-semibold py-1 px-1 rounded shadow"
+          to="/Home"
+          className="block bg-red-500 hover:bg-red-600 text-white text-center font-semibold py-1 px-1 mt-10 rounded shadow"
         >
           Logout
         </Link>

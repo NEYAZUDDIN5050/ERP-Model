@@ -9,55 +9,40 @@ const HR = () => {
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       {/* Back to Dashboard Button */}
-      <button
-        onClick={() => navigate('/dashboard')}
-        className="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 mb-6"
-      >
-        ← Back to Dashboard
-      </button>
-
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-semibold text-gray-800">HR Dashboard</h1>
-        <div>
-          {/* Profile Icon or HR Actions */}
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-full shadow-md hover:bg-indigo-700">
-            Profile
-          </button>
-        </div>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold bg-gray-400 rounded-2xl w-70 text-center text-gray-800">HR Management</h1>
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
+        >
+          ← Back to Dashboard
+        </button>
       </div>
+
+    
 
       {/* Navigation Section */}
-      <div className="bg-white p-6 rounded-lg shadow-lg mb-8">
-        <h2 className="text-xl font-medium text-gray-700 mb-4">HR Management</h2>
-        <nav>
-          <ul className="space-y-4">
-            <li>
-              <Link
-                to="/hr/attendance"
-                className="text-lg text-indigo-600 hover:text-indigo-800 hover:underline transition duration-300"
-              >
-                Attendance Tracking
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/hr/employee-records"
-                className="text-lg text-indigo-600 hover:text-indigo-800 hover:underline transition duration-300"
-              >
-                Employee Records
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/hr/leave-requests"
-                className="text-lg text-indigo-600 hover:text-indigo-800 hover:underline transition duration-300"
-              >
-                Leave Requests
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    
+
+      <nav className="bg-white p-4 rounded shadow mb-6">
+      <div className="container mx-auto px-4 mb-20">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+           
+             <Link to="/hr/attendance" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+                  <h2 className="text-2xl font-semibold">Attendence</h2>
+                  <p>Manage your inventory items efficiently and keep track of stock levels.</p>
+                </Link>
+                <Link to="/hr/employee-records" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+                  <h2 className="text-2xl font-semibold">Employee Records</h2>
+                  <p>Track and manage your sales transactions and customer orders.</p>
+                </Link>
+                <Link to="/hr/leave-requests" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+                  <h2 className="text-2xl font-semibold">Leave Requests </h2>
+                  <p>Manage your customer information and relationships effectively.</p>
+                </Link>
+         </div>
+         </div>
+      </nav>
 
       {/* HR Routes */}
       <div className="bg-white p-6 rounded-lg shadow-lg">
