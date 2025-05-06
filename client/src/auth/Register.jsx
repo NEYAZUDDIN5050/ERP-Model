@@ -36,7 +36,7 @@ const Register = () => {
         <h1 className="text-3xl font-bold mt-80 text-white">Welcome to BizERP</h1>
         <p className="text-sm mt-2 text-gray-600">Manage your business efficiently with our powerful ERP solution.</p>
 
-        <Link to="/" className="mt-6 inline-block text-blue-600 underline">
+        <Link to="/dashboard" className="mt-6 inline-block text-blue-600 underline">
           ← Back to Home
         </Link>
       </div>
