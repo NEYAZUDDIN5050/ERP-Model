@@ -48,32 +48,32 @@ const Overview = () => {
 
   return (
     <div className=" ">
-      <img src="https://media.licdn.com/dms/image/v2/D4D12AQGGCkd_ryYgYw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1657715061792?e=2147483647&v=beta&t=0cOTKbkFg67hWDuiOy_oEJMtW287UR5L3WlTH0gmf64" alt="img" className='mb-20' />
+      <img src="https://img.freepik.com/free-vector/flat-design-erp-illustration_23-2149380376.jpg?t=st=1746501782~exp=1746505382~hmac=d45cf4b2a7ffe2ed3ef822ce1c2a6314988819267fae0275b4760ac2f8802fda&w=1800" alt="img" className='mb-20' />
 
         {/* Features Section */}
         <div className="container mx-auto px-4 mb-20">
   <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <Link to="/crm" className="bg-blue-500 text-white p-6 rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-105">
+    <Link to="/crm" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">CRM</h2>
       <p>Manage your inventory items efficiently and keep track of stock levels.</p>
     </Link>
-    <Link to="/sales" className="bg-green-500 text-white p-6 rounded-lg shadow-lg hover:bg-green-600 transition transform hover:scale-105">
+    <Link to="/sales" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-green-600 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">Sales Management</h2>
       <p>Track and manage your sales transactions and customer orders.</p>
     </Link>
-    <Link to="/finance" className="bg-yellow-500 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-600 transition transform hover:scale-105">
+    <Link to="/finance" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-yellow-600 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">Finance Management</h2>
       <p>Manage your customer information and relationships effectively.</p>
     </Link>
-    <Link to="/hr" className="bg-purple-500 text-white p-6 rounded-lg shadow-lg hover:bg-purple-600 transition transform hover:scale-105">
+    <Link to="/hr" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-purple-600 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">HR Management</h2>
       <p>Create and manage invoices for your sales and services.</p>
     </Link>
-    <Link to="/inventory" className="bg-red-500 text-white p-6 rounded-lg shadow-lg hover:bg-red-600 transition transform hover:scale-105">
+    <Link to="/inventory" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-red-600 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">Inventory Management</h2>
       <p>Manage your products and their details, including pricing and stock.</p>
     </Link>
-    <Link to="/scm" className="bg-teal-500 text-white p-6 rounded-lg shadow-lg hover:bg-teal-600 transition transform hover:scale-105">
+    <Link to="/scm" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-teal-600 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">SCM</h2>
       <p>Process payroll for your employees and manage salary details.</p>
     </Link>

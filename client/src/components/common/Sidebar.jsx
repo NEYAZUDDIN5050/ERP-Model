@@ -7,7 +7,7 @@ import { BsColumnsGap } from "react-icons/bs";
 
 const Sidebar = () => {
   return (
-    <div className="bg-white  text-black w-64 h-full pt-13 fixed">
+    <div className="bg-white  text-black w-54 h-full pt-13 fixed">
       <div className=" text-2xl font-bold"></div>
       <ul className="mt-6">
       <li>

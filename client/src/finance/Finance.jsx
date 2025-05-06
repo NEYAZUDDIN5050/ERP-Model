@@ -23,15 +23,15 @@ const Finance = () => {
       <div className="container mx-auto px-4 mb-20">
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
            
-             <Link to="/finance/financial-reports" className="bg-yellow-300 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+             <Link to="/finance/financial-reports" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
                   <h2 className="text-2xl font-semibold">Financial Report</h2>
                   <p>Manage your inventory items efficiently and keep track of stock levels.</p>
                 </Link>
-                <Link to="/finance/income-expense-tracker" className="bg-yellow-300 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+                <Link to="/finance/income-expense-tracker" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
                   <h2 className="text-2xl font-semibold">Income & Expense Tracker</h2>
                   <p>Track and manage your sales transactions and customer orders.</p>
                 </Link>
-                <Link to="/finance/invoice-tracking" className="bg-yellow-300 text-white p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
+                <Link to="/finance/invoice-tracking" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
                   <h2 className="text-2xl font-semibold">Invoice Tracking </h2>
                   <p>Manage your customer information and relationships effectively.</p>
                 </Link>

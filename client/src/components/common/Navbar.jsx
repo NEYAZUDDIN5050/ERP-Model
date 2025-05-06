@@ -13,25 +13,25 @@ const Navbar = () => {
         <div className="flex space-x-8 ml-auto">
       <button 
         onClick={() => navigate('/dashboard')} 
-        className="bg-gray-400 rounded-2xl w-25 hover:underline"
+        className="bg-gray-300 rounded-2xl w-25 hover:underline"
       >
         Dashboard
       </button>
       <button 
         onClick={() => navigate('/About')} 
-        className="bg-gray-400 rounded-2xl w-20  hover:underline"
+        className="bg-gray-300 rounded-2xl w-20  hover:underline"
       >
         About
       </button>
       <button 
         onClick={() => navigate('/register')} 
-        className="bg-gray-400 rounded-2xl w-20  hover:underline"
+        className="bg-gray-300 rounded-2xl w-20  hover:underline"
       >
         Register
       </button>
       <button 
         onClick={() => navigate('/login')} 
-        className="bg-gray-400 rounded-2xl w-20 hover:underline"
+        className="bg-gray-300 rounded-2xl w-20 hover:underline"
       >
         Login
       </button>

@@ -18,7 +18,7 @@ const Dashboard = () => {
         <Sidebar />
 
         {/* Page Content */}
-        <main className="flex-1 p-6 ml-64 mt-10 mb-30">
+        <main className="flex-1 p-6 ml-54 mt-10 mb-30">
           <h1 className="text-3xl font-bold mb-4">Dashboard Overview</h1>
           <Overview />
           {/* Add your components here */}
