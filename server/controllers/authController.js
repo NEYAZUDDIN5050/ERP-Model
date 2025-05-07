@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import config from '../config/config.js';
+
 
 // Register
 const register = async (req, res) => {
@@ -29,7 +29,7 @@ const register = async (req, res) => {
         });
 
         // Generate token
-        const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: '1d' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         res.status(201).json({
             message: 'User registered successfully',
@@ -69,7 +69,7 @@ const login = async (req, res) => {
         }
 
         // Generate token
-        const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: '1d' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         res.json({
             message: 'Login successful',
