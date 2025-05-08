@@ -2,18 +2,19 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
+// Helper function to normalize email
+const normalizeEmail = (email) => email.toLowerCase().trim();
 
 // Register
 const register = async (req, res) => {
     const { name, email, password } = req.body;
-    try {
-        // // Validate input
-        // if (!name || !email || !password) {
-        //     return res.status(400).json({ message: 'Please provide all required fields' });
-        // }
 
-        // Check user exists
-        const existingUser = await User.findOne({ email });
+    try {
+        // Normalize email
+        const normalizedEmail = normalizeEmail(email);
+
+        // Check if user exists
+        const existingUser = await User.findOne({ email: normalizedEmail });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists' });
         }
@@ -24,11 +25,11 @@ const register = async (req, res) => {
         // Create user
         const user = await User.create({
             name,
-            email,
+            email: normalizedEmail,
             password: hashedPassword,
         });
 
-        // Generate token
+        // Generate JWT token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
         res.status(201).json({
@@ -37,7 +38,7 @@ const register = async (req, res) => {
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
             }
         });
     } catch (err) {
@@ -48,36 +49,39 @@ const register = async (req, res) => {
 
 // Login
 const login = async (req, res) => {
+    const { email, password } = req.body;
+
     try {
-        const { email, password } = req.body;
+        // Normalize email
+        const normalizedEmail = normalizeEmail(email);
 
         // Validate input
-        if (!email || !password) {
+        if (!normalizedEmail || !password) {
             return res.status(400).json({ message: 'Please provide email and password' });
         }
 
         // Find user
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: normalizedEmail });
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Check password
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
+        // Compare password
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         // Generate token
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        res.json({
+        res.status(200).json({
             message: 'Login successful',
             token,
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
             }
         });
     } catch (error) {
@@ -87,3 +91,4 @@ const login = async (req, res) => {
 };
 
 export { register, login };
+
