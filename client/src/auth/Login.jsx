@@ -4,6 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 // import { loginUser } from '../../redux/actions'; // Uncomment and use your login action
 import { BiLogoFacebook } from "react-icons/bi";
 import { AiOutlineTwitter } from "react-icons/ai";
+import axios from "axios";
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,12 +13,39 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = { email, password };
-    dispatch(loginUser(userData));
-    navigate('/dashboard');
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+  
+      const { success, message } = data;
+  
+      if (success) {
+        console.log("Login successful:", message);
+        // handleSuccess(message); ← replace with toast or actual function
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        console.error("Login failed:", message);
+        // handleError(message); ← replace with toast or actual function
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  
+    // Clear form fields
+    setEmail('');
+    setPassword('');
   };
+  
 
   return (
     <section
