@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 //import { registerUser } from '../../redux/actions';
-//import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
+
+import axios from "axios"
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -15,32 +17,38 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
     try {
-      const { data } = await axios.post(
+      const data = await axios.post(
         "http://localhost:5000/api/auth/register",
         {
           name,
           email,
           password,
-          confirmPassword
+        
         },
         
-        { withCredentials: true }
+      
       );
+     console.log({
+          name,
+          email,
+          password,
+        
+        });
 
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-     const {name, email, password } =data
-    const userData = { name, email, password };
-    console.log(data)
-
+   
+   const userData = { name, email, password };
     
-      const success = await dispatch(registerUser(userData));
+ const success = await dispatch(registerUser(userData));
       if (success) {
         toast.success("Registered successfully!");
-        navigate('/dashboard');
+        navigate('./dashboard');
       } else {
         toast.error("Registration failed");
       }
