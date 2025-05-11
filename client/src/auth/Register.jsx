@@ -3,8 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 //import { registerUser } from '../../redux/actions';
 import { toast } from 'react-hot-toast';
+<<<<<<< HEAD
 
 import axios from "axios"
+=======
+>>>>>>> d395d04a0ed08073c93f739e8f3a179f4b81ee9f
 
 const Register = () => {
   const [name, setName] = useState('');
