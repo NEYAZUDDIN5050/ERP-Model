@@ -15,15 +15,28 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          name,
+          email,
+          password,
+          confirmPassword
+        },
+        
+        { withCredentials: true }
+      );
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
-
+     const {name, email, password } =data
     const userData = { name, email, password };
+    console.log(data)
 
-    try {
+    
       const success = await dispatch(registerUser(userData));
       if (success) {
         toast.success("Registered successfully!");
