@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AttendanceTracking = () => {
@@ -11,20 +11,40 @@ const AttendanceTracking = () => {
     status: 'Present',
   });
 
-  const handleAttendanceSubmit = (e) => {
-    e.preventDefault();
-    const { employeeName, date, status } = newAttendance;
-    if (employeeName && date) {
-      const record = {
-        id: attendanceRecords.length + 1,
-        employeeName,
-        date,
-        status,
-      };
-      setAttendanceRecords([...attendanceRecords, record]);
-      setNewAttendance({ employeeName: '', date: '', status: 'Present' });
+
+
+  //Fetch existing attendence records from the backend
+ useEffect(() => {
+  const fetchAttendance = async () => {
+    try {
+      const res = await axios.get('/api/attendence');
+      setAttendanceRecords(res.data);
+    } catch (error) {
+      console.log('Error fetching attendence: ', error);
+      alert('Failed to load attendence records.');
     }
   };
+
+  fetchAttendance();
+
+
+ }, []);
+
+ const handleAttendanceSubmit = async (e) => {
+  e.preventDefault();
+  const { employee, date, status } = newAttendance;
+
+  if(employeeName && date) {
+    try {
+      const res = await axios.post('/api/attendence', newAttendance);
+      setAttendanceRecords([...attendanceRecords, res.data]);
+      setNewAttendance({ employeeName: '', date: "", status: 'present' });
+    } catch (error) {
+      console.error('Error adding attendance:', error);
+      alert('Failed to add attendance record.');
+    }
+  }
+ };
 
   return (
     <div className="bg-white p-4 rounded shadow mb-6">

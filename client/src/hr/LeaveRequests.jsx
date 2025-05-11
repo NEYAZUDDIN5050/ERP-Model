@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LeaveRequests = () => {
   const navigate = useNavigate();
@@ -12,26 +13,36 @@ const LeaveRequests = () => {
     status: 'Pending',
   });
 
-  const handleLeaveRequestSubmit = (e) => {
+  // Fetch existing leave requests from backend
+  useEffect(() => {
+    const fetchLeaveRequests = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/leave-requests');
+        setLeaveRequests(res.data);
+      } catch (err) {
+        console.error('Error fetching leave requests:', err);
+      }
+    };
+    fetchLeaveRequests();
+  }, []);
+
+  const handleLeaveRequestSubmit = async (e) => {
     e.preventDefault();
     const { employeeName, leaveType, startDate, endDate } = newLeaveRequest;
     if (employeeName && leaveType && startDate && endDate) {
-      const request = {
-        id: leaveRequests.length + 1,
-        employeeName,
-        leaveType,
-        startDate,
-        endDate,
-        status: 'Pending',
-      };
-      setLeaveRequests([...leaveRequests, request]);
-      setNewLeaveRequest({
-        employeeName: '',
-        leaveType: '',
-        startDate: '',
-        endDate: '',
-        status: 'Pending',
-      });
+      try {
+        const res = await axios.post('http://localhost:5000/api/leave-requests', newLeaveRequest);
+        setLeaveRequests([...leaveRequests, res.data]);
+        setNewLeaveRequest({
+          employeeName: '',
+          leaveType: '',
+          startDate: '',
+          endDate: '',
+          status: 'Pending',
+        });
+      } catch (err) {
+        console.error('Error submitting leave request:', err);
+      }
     }
   };
 
@@ -114,7 +125,7 @@ const LeaveRequests = () => {
         </thead>
         <tbody>
           {leaveRequests.map((request) => (
-            <tr key={request.id}>
+            <tr key={request._id}>
               <td className="border px-4 py-2">{request.employeeName}</td>
               <td className="border px-4 py-2">{request.leaveType}</td>
               <td className="border px-4 py-2">{request.startDate}</td>

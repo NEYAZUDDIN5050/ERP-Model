@@ -1,28 +1,38 @@
- import express from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
+
 import authRoutes from './routes/authRoutes.js';
+import attendanceRoutes from './routes/attendanceRoutes.js';
+import employeeRoutes from './routes/employeeRoutes.js';
+import leaveRoutes from './routes/leaveRoutes.js';
 
 dotenv.config();
 
 const app = express();
 
 // Connect to MongoDB
-connectDB(); 
+connectDB();
 
 // Middleware
-app.use(express.json());  // For parsing application/json
-app.use(cors());  // Enabling CORS
+app.use(express.json());
+app.use(cors());
 
-// Routes
+// API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/attendance', attendanceRoutes);
+app.use('/api/employees', employeeRoutes);
+app.use('/api/leaves', leaveRoutes);
 
-// Health Check Route
+// Health Check
 app.get('/', (req, res) => {
   res.send('🚀 ERP Backend is running');
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`🚀 Server running on port ${process.env.PORT}`);
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
+
