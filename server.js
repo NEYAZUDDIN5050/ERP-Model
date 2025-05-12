@@ -4,7 +4,7 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 
 import authRoutes from './routes/authRoutes.js';
-import attendenceRoutes from './routes/attendenceRoutes.js'; // ✅ with `.js`
+import attendenceRoutes from './routes/attendenceRoutes.js';
 import employeeRoutes from './routes/employeeRoutes.js';
 import leaveRoutes from './routes/leaveRoutes.js';
 
@@ -17,7 +17,14 @@ connectDB();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// ✅ Proper CORS configuration
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Your frontend URL
+    credentials: true,              // Allow cookies and headers
+  })
+);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -35,4 +42,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
