@@ -6,6 +6,7 @@ import LeaveRequests from './LeaveRequests';
 const HR = () => {
   const navigate = useNavigate();
 
+  
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       {/* Back to Dashboard Button */}

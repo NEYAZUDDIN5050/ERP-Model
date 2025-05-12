@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { registerUser } from '../../redux/actions';
-import { toast } from 'react-hot-toast';
+//import { registerUser } from '../../redux/actions';
+//import { toast } from 'react-hot-toast';
 
 const Register = () => {
   const [name, setName] = useState('');

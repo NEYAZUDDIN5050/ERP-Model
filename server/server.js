@@ -4,7 +4,7 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 
 import authRoutes from './routes/authRoutes.js';
-import attendanceRoutes from './routes/attendanceRoutes.js';
+import attendenceRoutes from './routes/attendenceRoutes.js'; // ✅ with `.js`
 import employeeRoutes from './routes/employeeRoutes.js';
 import leaveRoutes from './routes/leaveRoutes.js';
 
@@ -21,7 +21,7 @@ app.use(cors());
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/attendance', attendanceRoutes);
+app.use('/api/attendence', attendenceRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/leaves', leaveRoutes);
 

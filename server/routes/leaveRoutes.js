@@ -1,8 +1,10 @@
-const express = require('express');
+import express from 'express';
+import { applyLeave, getLeaves } from '../controllers/leaveController.js';
+
 const router = express.Router();
-const { applyLeave, getAllLeaves } = require('../controllers/leaveController');
 
 router.post('/', applyLeave);
-router.get('/', getAllLeaves);
+router.get('/', getLeaves);
 
-module.exports = router;
+export default router;
+
