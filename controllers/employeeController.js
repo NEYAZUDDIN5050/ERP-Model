@@ -1,21 +1,20 @@
-const Employee = require ('../models/Employee');
+import Employee from '../models/Employee.js';
 
-exports.addEmployee = async (requestAnimationFrame, res) => {
-   try {
-    const employee = new Employee (req.body);
+export const addEmployee = async (req, res) => {
+  try {
+    const employee = new Employee(req.body);
     await employee.save();
     res.status(201).json(employee);
-   
-   }catch (error) {
+  } catch (error) {
     res.status(500).json({ message: error.message });
-   }
+  }
 };
 
-exports.getEmployees = async (req, res) => {
-    try {
-        const emplyees = await Emplyee.find();
-        res.status(200).json(employees);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+export const getEmployees = async (req, res) => {
+  try {
+    const employees = await Employee.find();
+    res.status(200).json(employees);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };

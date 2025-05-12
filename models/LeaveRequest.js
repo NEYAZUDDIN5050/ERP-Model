@@ -1,5 +1,5 @@
 // models/LeaveRequest.js
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const LeaveRequestSchema = new mongoose.Schema({
   employeeName: String,
@@ -9,4 +9,7 @@ const LeaveRequestSchema = new mongoose.Schema({
   status: { type: String, default: 'Pending' },
 });
 
-module.exports = mongoose.model('LeaveRequest', LeaveRequestSchema);
+const LeaveRequest = mongoose.model('LeaveRequest', LeaveRequestSchema);
+
+export default LeaveRequest;
+
