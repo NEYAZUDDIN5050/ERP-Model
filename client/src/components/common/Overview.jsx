@@ -53,27 +53,27 @@ const Overview = () => {
         {/* Features Section */}
         <div className="container mx-auto px-4 mb-20">
   <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <Link to="/crm" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-105">
+    <Link to="/crm" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-blue-400 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">CRM</h2>
       <p>Manage your inventory items efficiently and keep track of stock levels.</p>
     </Link>
-    <Link to="/sales" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-green-600 transition transform hover:scale-105">
+    <Link to="/sales" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-green-400 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">Sales Management</h2>
       <p>Track and manage your sales transactions and customer orders.</p>
     </Link>
-    <Link to="/finance" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-yellow-600 transition transform hover:scale-105">
+    <Link to="/finance" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-yellow-400 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">Finance Management</h2>
       <p>Manage your customer information and relationships effectively.</p>
     </Link>
-    <Link to="/hr" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-purple-600 transition transform hover:scale-105">
+    <Link to="/hr" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">HR Management</h2>
       <p>Create and manage invoices for your sales and services.</p>
     </Link>
-    <Link to="/inventory" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-red-600 transition transform hover:scale-105">
+    <Link to="/inventory" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-red-400 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">Inventory Management</h2>
       <p>Manage your products and their details, including pricing and stock.</p>
     </Link>
-    <Link to="/scm" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-teal-600 transition transform hover:scale-105">
+    <Link to="/scm" className="bg-gray-300 text-black p-6 rounded-lg shadow-lg hover:bg-teal-400 transition transform hover:scale-105">
       <h2 className="text-2xl font-semibold">SCM</h2>
       <p>Process payroll for your employees and manage salary details.</p>
     </Link>

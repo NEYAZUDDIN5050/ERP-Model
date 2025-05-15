@@ -2,60 +2,100 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import FinancialReports from './FinancialReports';
 import IncomeExpenseTracker from './IncomeExpenseTracker';
 import InvoiceTracking from './InvoiceTracking';
-import BankManagement from './BankManagement'; // Import the new component
+import BankManagement from './BankManagement';
 
 const Finance = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold bg-gray-400 rounded-2xl w-70 text-center text-gray-800">Finance Overview</h1>
+    <div className="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen p-4 sm:p-8">
+      {/* Header Section */}
+      <header className="flex flex-col sm:flex-row justify-between items-center mb-8">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 bg-gradient-to-r from-blue-500 to-indigo-600 text-transparent bg-clip-text mb-4 sm:mb-0">
+          Finance Overview
+        </h1>
         <button
           onClick={() => navigate('/dashboard')}
-          className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
+          className="group relative inline-flex items-center px-5 py-2.5 rounded-full bg-red-600 text-white font-medium text-sm hover:bg-red-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
         >
-          ← Back to Dashboard
+          <span className="mr-2">←</span> Back to Dashboard
+          <span className="absolute inset-0 rounded-full bg-red-700 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
         </button>
-      </div>
+      </header>
 
-      {/* Navigation Links */}
-      <nav className="bg-white p-4 rounded shadow mb-6">
-        <div className="container mx-auto px-4 mb-20">
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Link to="/finance/financial-reports" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-              <h2 className="text-2xl font-semibold">Financial Report</h2>
-              <p>Manage your inventory items efficiently and keep track of stock levels.</p>
-            </Link>
-            <Link to="/finance/income-expense-tracker" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-              <h2 className="text-2xl font-semibold">Income & Expense Tracker</h2>
-              <p>Track and manage your sales transactions and customer orders.</p>
-            </Link>
-            <Link to="/finance/invoice-tracking" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-              <h2 className="text-2xl font-semibold">Invoice Tracking</h2>
-              <p>Manage your customer information and relationships effectively.</p>
-            </Link>
-            <Link to="/finance/bank-management" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-              <h2 className="text-2xl font-semibold">Bank Management</h2>
-              <p>Manage your bank accounts and track transactions.</p>
-            </Link>
+      {/* Navigation Section */}
+      <nav className="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                to: '/finance/financial-reports',
+                title: 'Financial Reports',
+                desc: 'View and analyze financial performance.',
+                icon: '📊',
+              },
+              {
+                to: '/finance/income-expense-tracker',
+                title: 'Income & Expenses',
+                desc: 'Track income and expense transactions.',
+                icon: '💸',
+              },
+              {
+                to: '/finance/invoice-tracking',
+                title: 'Invoice Tracking',
+                desc: 'Manage invoices and payment statuses.',
+                icon: '📄',
+              },
+              {
+                to: '/finance/bank-management',
+                title: 'Bank Management',
+                desc: 'Oversee bank accounts and transactions.',
+                icon: '🏦',
+              },
+            ].map((item, index) => (
+              <Link
+                key={index}
+                to={item.to}
+                className="group relative bg-white p-5 rounded-xl shadow-sm hover:shadow-lg border border-gray-100 transition-all duration-300 transform hover:-translate-y-1"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity duration-300"></div>
+                <div className="relative flex items-start space-x-4">
+                  <span className="text-3xl">{item.icon}</span>
+                  <div>
+                    <h2 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600">
+                      {item.title}
+                    </h2>
+                    <p className="text-sm text-gray-500 mt-1">{item.desc}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </nav>
 
-      {/* Routes */}
-      <div className="bg-white p-6 rounded shadow">
+      {/* Content Section */}
+      <main className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
         <Routes>
           <Route path="financial-reports" element={<FinancialReports />} />
           <Route path="income-expense-tracker" element={<IncomeExpenseTracker />} />
           <Route path="invoice-tracking" element={<InvoiceTracking />} />
-          <Route path="bank-management" element={<BankManagement />} /> {/* Add route for Bank Management */}
+          <Route path="bank-management" element={<BankManagement />} />
           <Route
             path=""
-            element={<div className="text-center text-gray-500">👋 Welcome to the Finance Section</div>}
+            element={
+              <div className="text-center py-12">
+                <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+                  Welcome to Finance Management
+                </h2>
+                <p className="text-gray-500">
+                  Select an option from the menu above to get started.
+                </p>
+              </div>
+            }
           />
         </Routes>
-      </div>
+      </main>
     </div>
   );
 };
