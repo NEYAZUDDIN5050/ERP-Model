@@ -2,6 +2,8 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import InvoiceGeneration from './InvoiceGeneration';
 import SalesOrder from './SalesOrder';
 import SalesReporting from './SalesReporting';
+import PricingDiscount from './PricingDiscount';
+
 
 const Sales = () => {
   const navigate = useNavigate();
@@ -38,6 +40,13 @@ const Sales = () => {
               <p>Track and fulfill customer orders efficiently.</p>
             </Link>
             <Link
+              to="/sales/pricingDiscount" // Add link for Pricing and Discount
+              className="bg-indigo-400 text-white p-6 rounded-lg shadow-lg hover:bg-indigo-500 transition transform hover:scale-105"
+            >
+              <h2 className="text-2xl font-semibold">Pricing and Discount</h2>
+              <p>Manage pricing and discounts for your products.</p>
+            </Link>
+            <Link
               to="/sales/SalesReporting"
               className="bg-indigo-400 text-white p-6 rounded-lg shadow-lg hover:bg-indigo-500 transition transform hover:scale-105"
             >
@@ -54,6 +63,7 @@ const Sales = () => {
           <Route path="invoiceGeneration" element={<InvoiceGeneration />} />
           <Route path="salesOrder" element={<SalesOrder />} />
           <Route path="SalesReporting" element={<SalesReporting />} />
+          <Route path="pricingDiscount" element={<PricingDiscount />} />
           <Route
             path=""
             element={

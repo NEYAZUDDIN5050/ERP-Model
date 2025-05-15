@@ -3,6 +3,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import DeliveryScheduling from './DeliveryScheduling';
 import InventoryMovement from './InventoryMovement';
 import VendorManagement from './VendorManagement';
+import SCMReporting from './SCMReporting'; // Import the new component
 
 const SCM = () => {
   const navigate = useNavigate();
@@ -47,6 +48,14 @@ const SCM = () => {
               <h2 className="text-2xl font-semibold">Vendor Management</h2>
               <p>Manage vendor relationships and supplier performance.</p>
             </Link>
+
+            <Link
+              to="/scm/reporting" // Add link for Reporting and Analytics
+              className="bg-blue-300 text-white p-6 rounded-lg shadow-lg hover:bg-blue-400 transition transform hover:scale-105"
+            >
+              <h2 className="text-2xl font-semibold">SCM Reporting & Analytics</h2>
+              <p>View real-time dashboards for supply chain KPIs.</p>
+            </Link>
           </div>
         </div>
       </nav>
@@ -57,6 +66,7 @@ const SCM = () => {
           <Route path="delivery-scheduling" element={<DeliveryScheduling />} />
           <Route path="inventory-movement" element={<InventoryMovement />} />
           <Route path="vendor-management" element={<VendorManagement />} />
+          <Route path="reporting" element={<SCMReporting />} /> {/* Add route for Reporting and Analytics */}
           <Route
             path=""
             element={

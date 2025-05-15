@@ -2,6 +2,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import CustomerProfiles from './CustomerProfiles';
 import DealPipeline from './DealPipeline';
 import SupportTicketing from './SupportTicketing';
+import ActivityTaskManagement from './ActivityTaskManagement'; // Import the new component
 
 const CRM = () => {
   const navigate = useNavigate();
@@ -35,6 +36,10 @@ const CRM = () => {
               <h2 className="text-2xl font-semibold">Support Ticketing</h2>
               <p>Handle customer support issues and ticket resolution efficiently.</p>
             </Link>
+            <Link to="/crm/activityTaskManagement" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Activity & Task Management</h2>
+              <p>Schedule follow-ups, meetings, calls, and reminders.</p>
+            </Link>
           </div>
         </div>
       </nav>
@@ -45,6 +50,7 @@ const CRM = () => {
           <Route path="CustomerProfile" element={<CustomerProfiles />} />
           <Route path="DealPipeline" element={<DealPipeline />} />
           <Route path="SupportTicketing" element={<SupportTicketing />} />
+          <Route path="activityTaskManagement" element={<ActivityTaskManagement />} /> {/* Add route for Activity & Task Management */}
           <Route
             path=""
             element={

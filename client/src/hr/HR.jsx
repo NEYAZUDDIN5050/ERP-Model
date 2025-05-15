@@ -2,11 +2,12 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import AttendanceTracking from './AttendanceTracking';
 import EmployeeRecords from './EmployeeRecords';
 import LeaveRequests from './LeaveRequests';
+import PayrollManagement from './PayrollManagement'; // Import the new component
+import PerformanceManagement from './PerformanceManagement'; // Import the new component
 
 const HR = () => {
   const navigate = useNavigate();
 
-  
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       {/* Back to Dashboard Button */}
@@ -20,29 +21,32 @@ const HR = () => {
         </button>
       </div>
 
-    
-
       {/* Navigation Section */}
-    
-
       <nav className="bg-white p-4 rounded shadow mb-6">
-      <div className="container mx-auto px-4 mb-20">
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-           
-             <Link to="/hr/attendance" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
-                  <h2 className="text-2xl font-semibold">Attendence</h2>
-                  <p>Manage your inventory items efficiently and keep track of stock levels.</p>
-                </Link>
-                <Link to="/hr/employee-records" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
-                  <h2 className="text-2xl font-semibold">Employee Records</h2>
-                  <p>Track and manage your sales transactions and customer orders.</p>
-                </Link>
-                <Link to="/hr/leave-requests" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
-                  <h2 className="text-2xl font-semibold">Leave Requests </h2>
-                  <p>Manage your customer information and relationships effectively.</p>
-                </Link>
-         </div>
-         </div>
+        <div className="container mx-auto px-4 mb-20">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link to="/hr/attendance" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Attendance</h2>
+              <p>Manage employee attendance records efficiently.</p>
+            </Link>
+            <Link to="/hr/employee-records" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Employee Records</h2>
+              <p>Track and manage employee information effectively.</p>
+            </Link>
+            <Link to="/hr/leave-requests" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Leave Requests</h2>
+              <p>Manage employee leave requests and approvals.</p>
+            </Link>
+            <Link to="/hr/payroll" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Payroll Management</h2>
+              <p>Manage salary structures and payroll details.</p>
+            </Link>
+            <Link to="/hr/performance" className="bg-purple-300 text-white p-6 rounded-lg shadow-lg hover:bg-purple-400 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Performance Management</h2>
+              <p>Set goals and manage performance appraisals.</p>
+            </Link>
+          </div>
+        </div>
       </nav>
 
       {/* HR Routes */}
@@ -51,6 +55,8 @@ const HR = () => {
           <Route path="attendance" element={<AttendanceTracking />} />
           <Route path="employee-records" element={<EmployeeRecords />} />
           <Route path="leave-requests" element={<LeaveRequests />} />
+          <Route path="payroll" element={<PayrollManagement />} /> {/* Add route for Payroll Management */}
+          <Route path="performance" element={<PerformanceManagement />} /> {/* Add route for Performance Management */}
           <Route
             path=""
             element={

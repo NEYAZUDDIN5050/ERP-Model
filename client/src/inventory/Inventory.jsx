@@ -2,6 +2,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import InventoryTransfer from './InventoryTransfer';
 import LowStockAlert from './LowStockAlert';
 import StockMonitoring from './StockMonitoring';
+import StockInOut from './StockInOut'; // Import the new component
 
 const Inventory = () => {
   const navigate = useNavigate();
@@ -44,6 +45,13 @@ const Inventory = () => {
               <h2 className="text-2xl font-semibold">Stock Monitoring</h2>
               <p>Monitor real-time stock levels and inventory flow.</p>
             </Link>
+            <Link
+              to="/inventory/stockInOut" // Add link for Stock In/Out
+              className="bg-indigo-400 text-white p-6 rounded-lg shadow-lg hover:bg-indigo-500 transition transform hover:scale-105"
+            >
+              <h2 className="text-2xl font-semibold">Stock In/Out</h2>
+              <p>Record incoming and outgoing stock.</p>
+            </Link>
           </div>
         </div>
       </nav>
@@ -54,6 +62,7 @@ const Inventory = () => {
           <Route path="inventoryTransfer" element={<InventoryTransfer />} />
           <Route path="lowStockAlert" element={<LowStockAlert />} />
           <Route path="stockMonitoring" element={<StockMonitoring />} />
+          <Route path="stockInOut" element={<StockInOut />} /> {/* Add route for Stock In/Out */}
           <Route
             path=""
             element={

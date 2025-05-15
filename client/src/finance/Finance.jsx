@@ -2,6 +2,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import FinancialReports from './FinancialReports';
 import IncomeExpenseTracker from './IncomeExpenseTracker';
 import InvoiceTracking from './InvoiceTracking';
+import BankManagement from './BankManagement'; // Import the new component
 
 const Finance = () => {
   const navigate = useNavigate();
@@ -20,23 +21,26 @@ const Finance = () => {
 
       {/* Navigation Links */}
       <nav className="bg-white p-4 rounded shadow mb-6">
-      <div className="container mx-auto px-4 mb-20">
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-           
-             <Link to="/finance/financial-reports" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-                  <h2 className="text-2xl font-semibold">Financial Report</h2>
-                  <p>Manage your inventory items efficiently and keep track of stock levels.</p>
-                </Link>
-                <Link to="/finance/income-expense-tracker" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-                  <h2 className="text-2xl font-semibold">Income & Expense Tracker</h2>
-                  <p>Track and manage your sales transactions and customer orders.</p>
-                </Link>
-                <Link to="/finance/invoice-tracking" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
-                  <h2 className="text-2xl font-semibold">Invoice Tracking </h2>
-                  <p>Manage your customer information and relationships effectively.</p>
-                </Link>
-         </div>
-         </div>
+        <div className="container mx-auto px-4 mb-20">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Link to="/finance/financial-reports" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Financial Report</h2>
+              <p>Manage your inventory items efficiently and keep track of stock levels.</p>
+            </Link>
+            <Link to="/finance/income-expense-tracker" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Income & Expense Tracker</h2>
+              <p>Track and manage your sales transactions and customer orders.</p>
+            </Link>
+            <Link to="/finance/invoice-tracking" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Invoice Tracking</h2>
+              <p>Manage your customer information and relationships effectively.</p>
+            </Link>
+            <Link to="/finance/bank-management" className="bg-blue-400 text-white p-6 rounded-lg shadow-lg hover:bg-blue-500 transition transform hover:scale-105">
+              <h2 className="text-2xl font-semibold">Bank Management</h2>
+              <p>Manage your bank accounts and track transactions.</p>
+            </Link>
+          </div>
+        </div>
       </nav>
 
       {/* Routes */}
@@ -45,6 +49,7 @@ const Finance = () => {
           <Route path="financial-reports" element={<FinancialReports />} />
           <Route path="income-expense-tracker" element={<IncomeExpenseTracker />} />
           <Route path="invoice-tracking" element={<InvoiceTracking />} />
+          <Route path="bank-management" element={<BankManagement />} /> {/* Add route for Bank Management */}
           <Route
             path=""
             element={<div className="text-center text-gray-500">👋 Welcome to the Finance Section</div>}
