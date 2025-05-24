@@ -1,3 +1,4 @@
+// server/routes/leaveRoutes.js
 import express from 'express';
 import { applyLeave, getLeaves } from '../controllers/leaveController.js';
 
@@ -7,4 +8,3 @@ router.post('/', applyLeave);
 router.get('/', getLeaves);
 
 export default router;
-

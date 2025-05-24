@@ -12,7 +12,7 @@ const HR = () => {
     <div className="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen p-4 sm:p-8">
       {/* Header Section */}
       <header className="flex flex-col sm:flex-row justify-between items-center mb-8">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 bg-gradient-to-r from-purple-500 to-indigo-600 text-transparent bg-clip-text mb-4 sm:mb-0">
+        <h1 className="text-3xl sm:text-4xl font-extrabold  bg-gradient-to-r from-purple-500 to-indigo-600 text-transparent bg-clip-text mb-4 sm:mb-0">
           HR Management
         </h1>
         <button

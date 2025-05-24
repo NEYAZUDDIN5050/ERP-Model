@@ -1,77 +1,54 @@
-// src/components/common/Sidebar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaHome, FaMoneyBillWave, FaUsers, FaIndustry, FaTruck, FaClipboardList, FaShoppingCart, FaChartLine, FaWarehouse } from 'react-icons/fa';
-import { BsColumnsGap } from "react-icons/bs";
-import { IoHomeSharp } from "react-icons/io5";
-
+import { Link, useNavigate } from 'react-router-dom';
+import { FaMoneyBillWave, FaUsers, FaTruck, FaClipboardList, FaChartLine, FaWarehouse } from 'react-icons/fa';
+import { BsColumnsGap } from 'react-icons/bs';
+import { IoHomeSharp } from 'react-icons/io5';
+import { FiLogOut } from 'react-icons/fi';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-gray-200  text-black w-54 h-full pt-17 fixed">
-      <div className=" text-2xl font-bold"></div>
-      <ul className="mt-6 font-bold">
-      <li>
-          <Link to="/Home" className="flex m-2 items-center p-3 font-size pt-5 hover:bg-gray-400">
-            <IoHomeSharp className="mr-2 " /> Home 
-          </Link>
-        </li>
-        <li>
-          <Link to="/About" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400">
-            <BsColumnsGap className="mr-2 " /> About 
-          </Link>
-        </li>
-        <li>
-          <Link to="/finance" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400">
-            <FaMoneyBillWave className="mr-2" /> Finance
-          </Link>
-        </li>
-        <li>
-          <Link to="/hr" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400">
-            <FaUsers className="mr-2" /> HR
-          </Link>
-        </li>
-       {/*  <li>
-          <Link to="/manufacturing" className="flex items-center p-1 hover:bg-gray-700">
-            <FaIndustry className="mr-2" /> Manufacturing
-          </Link>
-        </li>
-        */}
-        <li>
-          <Link to="/scm" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400">
-            <FaTruck className="mr-2" /> Supply Chain
-          </Link>
-        </li>
-        <li>
-          <Link to="/crm" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400">
-            <FaClipboardList className="mr-2" /> CRM
-          </Link>
-        </li>
-       {/*<li>
-          <Link to="/procurement" className="flex items-center p-1 pt-5 hover:bg-gray-700">
-            <FaShoppingCart className="mr-2" /> Procurement
-          </Link>
-        </li>
-        */}
-        <li>
-          <Link to="/sales" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400">
-            <FaChartLine className="mr-2" /> Sales
-          </Link>
-        </li>
-        <li>
-          <Link to="/inventory" className="flex m-2 items-center p-3 pt-5 hover:bg-gray-400 ">
-            <FaWarehouse className="mr-2  " /> Inventory
-          </Link>
-          <div className="p-5">
-        <Link
-          to="/Home"
-          className="block bg-red-500 hover:bg-red-600 text-white text-center font-semibold py-1 px-1 mt- rounded shadow"
-        >
-          Logout
-        </Link>
+    <div className="bg-gradient-to-b from-gray-800 to-gray-900 text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg">
+      {/* Logo/Title */}
+      <div className="p-4 text-2xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-600 text-transparent bg-clip-text">
+        ERP Dashboard
       </div>
-        </li>
+
+      {/* Navigation Links */}
+      <ul className="flex-1 mt-4">
+        {[
+          { to: '/Home', label: 'Home', icon: IoHomeSharp },
+          { to: '/About', label: 'About', icon: BsColumnsGap },
+          { to: '/finance', label: 'Finance', icon: FaMoneyBillWave },
+          { to: '/hr', label: 'HR', icon: FaUsers },
+          { to: '/scm', label: 'Supply Chain', icon: FaTruck },
+          { to: '/crm', label: 'CRM', icon: FaClipboardList },
+          { to: '/sales', label: 'Sales', icon: FaChartLine },
+          { to: '/inventory', label: 'Inventory', icon: FaWarehouse },
+        ].map((item, index) => (
+          <li key={index}>
+            <Link
+              to={item.to}
+              className="flex items-center p-3 mx-2 rounded-lg hover:bg-gray-700 transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
+            >
+              <item.icon className="w-5 h-5 mr-3" />
+              <span className="text-sm font-medium">{item.label}</span>
+            </Link>
+          </li>
+        ))}
       </ul>
+
+      {/* Logout Button */}
+      <div className="p-4">
+        <button
+          onClick={() => navigate('/Home')}
+          className="flex items-center w-full p-3 mb-10 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+        >
+          <FiLogOut className="w-5 h-5 mr-3" />
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

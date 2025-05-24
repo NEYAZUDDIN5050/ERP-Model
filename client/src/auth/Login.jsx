@@ -1,52 +1,53 @@
 import React, { useState } from 'react';
-import axios from "axios";
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-// import { loginUser } from '../../redux/actions'; // Uncomment and use your login action
-import { BiLogoFacebook } from "react-icons/bi";
-import { AiOutlineTwitter } from "react-icons/ai";
-
-
+import { toast } from 'react-hot-toast';
+import { BiLogoFacebook } from 'react-icons/bi';
+import { AiOutlineTwitter } from 'react-icons/ai';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const data = await axios.post(
-        "http://localhost:5000/api/auth/login",
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/login',
         {
           email,
           password,
         },
-      
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
       );
-  
-      const { success, message } = data;
-  
+
+      const { success, message, token } = response.data;
+
+      console.log('Login response:', response.data);
+
       if (success) {
-        console.log("Login successful:", message);
-        // handleSuccess(message); ← replace with toast or actual function
+        localStorage.setItem('token', token);
+        toast.success(message);
         setTimeout(() => {
-          navigate("/");
+          navigate('/dashboard');
         }, 1000);
       } else {
-        console.error("Login failed:", message);
-        // handleError(message); ← replace with toast or actual function
+        toast.error(message);
       }
+
+      // Clear form fields
+      setEmail('');
+      setPassword('');
     } catch (error) {
-      console.error("Login error:", error);
+      console.error('Login error:', error.response?.data);
+      toast.error(error.response?.data?.message || 'Login failed');
     }
-  
-    // Clear form fields
-    setEmail('');
-    setPassword('');
   };
-  
 
   return (
     <section

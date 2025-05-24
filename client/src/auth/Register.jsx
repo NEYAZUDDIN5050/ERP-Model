@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-//import { registerUser } from '../../redux/actions';
 import { toast } from 'react-hot-toast';
-
-import axios from "axios";
+import axios from 'axios';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -12,68 +9,61 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
       return;
     }
+
     try {
-      const data = await axios.post(
-        "http://localhost:5000/api/auth/register",
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/signup', // Changed from /register to /signup
         {
           name,
           email,
           password,
-        
         },
-        
-      
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
       );
-     console.log({
-          name,
-          email,
-          password,
-        
-        });
 
-   
-   const userData = { name, email, password };
-    
- const success = await dispatch(registerUser(userData));
-      if (success) {
-        toast.success("Registered successfully!");
-        navigate('./dashboard');
-      } else {
-        toast.error("Registration failed");
-      }
+      console.log('Server response:', response.data);
+
+      // Store JWT in localStorage
+      localStorage.setItem('token', response.data.token);
+
+      toast.success('Registered successfully!');
+      navigate('/dashboard'); // Absolute path for clarity
     } catch (err) {
-      toast.error("Something went wrong");
+      console.error('Registration error:', err.response?.data);
+      toast.error(err.response?.data?.message || 'Registration failed');
     }
   };
 
   return (
     <section
-      className='h-screen flex flex-col md:flex-row items-center justify-center bg-cover'
+      className="h-screen flex flex-col md:flex-row items-center justify-center bg-cover"
       style={{
         backgroundImage:
           "url('https://static.vecteezy.com/system/resources/previews/007/164/537/non_2x/fingerprint-identity-sensor-data-protection-system-podium-hologram-blue-light-and-concept-free-vector.jpg')",
       }}
     >
-      <div className='md:w-1/2 p-8 flex flex-col items-center text-center'>
+      <div className="md:w-1/2 p-8 flex flex-col items-center text-center">
         <h1 className="text-3xl font-bold mt-80 text-white">Welcome to BizERP</h1>
-        <p className="text-sm mt-2 text-gray-600">Manage your business efficiently with our powerful ERP solution.</p>
+        <p className="text-sm mt-2 text-gray-600">
+          Manage your business efficiently with our powerful ERP solution.
+        </p>
         <Link to="/" className="mt-6 inline-block text-blue-600 underline">
           ← Back to Home
         </Link>
       </div>
 
-      <div className='md:w-100 p-8'>
+      <div className="md:w-100 p-8">
         <form
           onSubmit={handleSubmit}
           className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto w-full"
@@ -81,7 +71,7 @@ if (password !== confirmPassword) {
           <h2 className="text-2xl font-semibold mb-6 text-center">Create an Account</h2>
 
           <input
-            type='text'
+            type="text"
             placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -89,7 +79,7 @@ if (password !== confirmPassword) {
             required
           />
           <input
-            type='email'
+            type="email"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -97,7 +87,7 @@ if (password !== confirmPassword) {
             required
           />
           <input
-            type='password'
+            type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -105,7 +95,7 @@ if (password !== confirmPassword) {
             required
           />
           <input
-            type='password'
+            type="password"
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

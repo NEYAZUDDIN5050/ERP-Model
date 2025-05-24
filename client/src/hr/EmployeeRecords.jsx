@@ -20,10 +20,14 @@ const EmployeeRecords = () => {
       try {
         setLoading(true);
         const res = await axios.get('/api/employees');
-        setEmployees(res.data);
+        console.log('API response (employees):', res.data); // Debug log
+        setEmployees(Array.isArray(res.data) ? res.data : []);
+        setError('');
         setLoading(false);
       } catch (err) {
-        setError('Failed to load employees.');
+        console.error('Error fetching employees:', err.response?.data || err.message);
+        setError('Failed to load employees. Please check the backend server.');
+        setEmployees([]);
         setLoading(false);
       }
     };
@@ -37,11 +41,15 @@ const EmployeeRecords = () => {
     if (name && position && department && dateOfJoining) {
       try {
         const res = await axios.post('/api/employees', newEmployee);
-        setEmployees([...employees, res.data]); // assuming backend returns the added employee
+        setEmployees([...employees, res.data]);
         setNewEmployee({ name: '', position: '', department: '', dateOfJoining: '' });
+        setError('');
       } catch (err) {
-        setError('Failed to add employee.');
+        console.error('Error adding employee:', err.response?.data || err.message);
+        setError('Failed to add employee. Please check the input or backend server.');
       }
+    } else {
+      setError('Please fill in all required fields.');
     }
   };
 
@@ -56,7 +64,7 @@ const EmployeeRecords = () => {
         ← Back to HR Dashboard
       </button>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       {loading ? (
         <p>Loading employees...</p>
       ) : (
@@ -90,7 +98,9 @@ const EmployeeRecords = () => {
               <input
                 type="date"
                 value={newEmployee.dateOfJoining}
-                onChange={(e) => setNewEmployee({ ...newEmployee, dateOfJoining: e.target.value })}
+                onChange={(e) =>
+                  setNewEmployee({ ...newEmployee, dateOfJoining: e.target.value })
+                }
                 className="border p-2 rounded"
                 required
               />
@@ -111,14 +121,26 @@ const EmployeeRecords = () => {
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee) => (
-                <tr key={employee._id || employee.id}>
-                  <td className="border px-4 py-2">{employee.name}</td>
-                  <td className="border px-4 py-2">{employee.position}</td>
-                  <td className="border px-4 py-2">{employee.department}</td>
-                  <td className="border px-4 py-2">{employee.dateOfJoining}</td>
+              {Array.isArray(employees) && employees.length > 0 ? (
+                employees.map((employee) => (
+                  <tr key={employee._id}>
+                    <td className="border px-4 py-2">{employee.name}</td>
+                    <td className="border px-4 py-2">{employee.position}</td>
+                    <td className="border px-4 py-2">{employee.department}</td>
+                    <td className="border px-4 py-2">
+                      {employee.dateOfJoining
+                        ? new Date(employee.dateOfJoining).toLocaleDateString()
+                        : 'Invalid Date'}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="border px-4 py-2 text-center">
+                    No employees found.
+                  </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </>

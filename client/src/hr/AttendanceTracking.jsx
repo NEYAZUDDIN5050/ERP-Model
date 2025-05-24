@@ -1,55 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AttendanceTracking = () => {
   const navigate = useNavigate();
-
   const [attendanceRecords, setAttendanceRecords] = useState([]);
   const [newAttendance, setNewAttendance] = useState({
     employeeName: '',
     date: '',
     status: 'Present',
   });
+  const [error, setError] = useState(null);
 
+  // Fetch existing attendance records from the backend
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const res = await axios.get('/api/attendance');
+        console.log('API response:', res.data); // Debug log
+        setAttendanceRecords(Array.isArray(res.data) ? res.data : []);
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching attendance:', error.response?.data || error.message);
+        setError('Failed to load attendance records. Please check the backend server.');
+        setAttendanceRecords([]);
+      }
+    };
 
+    fetchAttendance();
+  }, []);
 
-  //Fetch existing attendence records from the backend
- useEffect(() => {
-  const fetchAttendance = async () => {
-    try {
-      const res = await axios.get('/api/attendence');
-      setAttendanceRecords(res.data);
-    } catch (error) {
-      console.log('Error fetching attendence: ', error);
-      alert('Failed to load attendence records.');
+  const handleAttendanceSubmit = async (e) => {
+    e.preventDefault();
+    const { employeeName, date, status } = newAttendance;
+
+    if (employeeName && date) {
+      try {
+        const res = await axios.post('/api/attendance', newAttendance);
+        setAttendanceRecords([...attendanceRecords, res.data]);
+        setNewAttendance({ employeeName: '', date: '', status: 'Present' });
+        setError(null);
+      } catch (error) {
+        console.error('Error adding attendance:', error.response?.data || error.message);
+        setError('Failed to add attendance record. Please check the input or backend server.');
+      }
+    } else {
+      setError('Please fill in all required fields.');
     }
   };
-
-  fetchAttendance();
-
-
- }, []);
-
- const handleAttendanceSubmit = async (e) => {
-  e.preventDefault();
-  const { employee, date, status } = newAttendance;
-
-  if(employeeName && date) {
-    try {
-      const res = await axios.post('/api/attendence', newAttendance);
-      setAttendanceRecords([...attendanceRecords, res.data]);
-      setNewAttendance({ employeeName: '', date: "", status: 'present' });
-    } catch (error) {
-      console.error('Error adding attendance:', error);
-      alert('Failed to add attendance record.');
-    }
-  }
- };
 
   return (
     <div className="bg-white p-4 rounded shadow mb-6">
       <h2 className="text-xl font-bold mb-2">Attendance Tracking</h2>
-      
+
       {/* Back Button */}
       <button
         onClick={() => navigate('/hr')}
@@ -57,6 +60,9 @@ const AttendanceTracking = () => {
       >
         ← Back to HR Dashboard
       </button>
+
+      {/* Error Message */}
+      {error && <div className="text-red-500 mb-4">{error}</div>}
 
       <form onSubmit={handleAttendanceSubmit} className="mt-2">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -99,13 +105,23 @@ const AttendanceTracking = () => {
           </tr>
         </thead>
         <tbody>
-          {attendanceRecords.map((record) => (
-            <tr key={record.id}>
-              <td className="border px-4 py-2">{record.employeeName}</td>
-              <td className="border px-4 py-2">{record.date}</td>
-              <td className="border px-4 py-2">{record.status}</td>
+          {Array.isArray(attendanceRecords) && attendanceRecords.length > 0 ? (
+            attendanceRecords.map((record) => (
+              <tr key={record._id}>
+                <td className="border px-4 py-2">{record.employeeName}</td>
+                <td className="border px-4 py-2">
+                  {record.date ? new Date(record.date).toLocaleDateString() : 'Invalid Date'}
+                </td>
+                <td className="border px-4 py-2">{record.status}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3" className="border px-4 py-2 text-center">
+                No attendance records found.
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

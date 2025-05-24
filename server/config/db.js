@@ -1,18 +1,17 @@
+// config/db.js
 import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const con = await mongoose.connect(process.env.MONGO_URI); // 👈 Uppercase MONGO_URI
-    if (con) {
-      console.log("✅ Database connected");
-    } else {
-      console.log("❌ Database not connected");
-    }
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected successfully');
   } catch (error) {
-    console.log("❌ MongoDB connection error:", error);
+    console.error('MongoDB connection error:', error.message);
+    process.exit(1);
   }
 };
 
 export default connectDB;
-
-
