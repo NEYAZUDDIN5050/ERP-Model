@@ -1,3 +1,4 @@
+// server/routes/employeeRoutes.js
 import express from 'express';
 import { addEmployee, getEmployees } from '../controllers/employeeController.js';
 
