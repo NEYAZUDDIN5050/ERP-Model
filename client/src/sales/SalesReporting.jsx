@@ -1,116 +1,158 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const sampleOrders = [
-  { id: 1, date: '2025-05-01', items: [{ name: 'Shoes', quantity: 3 }, { name: 'Hat', quantity: 1 }] },
-  { id: 2, date: '2025-05-10', items: [{ name: 'Shirt', quantity: 5 }] },
-  { id: 3, date: '2025-05-12', items: [{ name: 'Jeans', quantity: 2 }] },
-];
-
-const SalesReporting = ({ orders = sampleOrders }) => {
-  const [sortByQty, setSortByQty] = useState(false);
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
-
-  // Filter by date
-  const filteredOrders = orders.filter(order => {
-    const orderDate = new Date(order.date);
-    const from = fromDate ? new Date(fromDate) : null;
-    const to = toDate ? new Date(toDate) : null;
-    return (!from || orderDate >= from) && (!to || orderDate <= to);
+const SalesReporting = () => {
+  const navigate = useNavigate();
+  const [reports, setReports] = useState([]);
+  const [newReport, setNewReport] = useState({
+    startDate: '',
+    endDate: '',
+    customerName: '',
+    status: 'All',
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // Optionally sort by quantity
-  const processedOrders = sortByQty
-    ? [...filteredOrders].sort((a, b) =>
-        b.items.reduce((sum, item) => sum + item.quantity, 0) -
-        a.items.reduce((sum, item) => sum + item.quantity, 0)
-      )
-    : filteredOrders;
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get('/api/sales/reports');
+        console.log('API response (reports):', res.data);
+        setReports(Array.isArray(res.data) ? res.data : []);
+        setError('');
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching reports:', err.response?.data || err.message);
+        setError('Failed to load reports. Please check the backend server.');
+        setReports([]);
+        setLoading(false);
+      }
+    };
+    fetchReports();
+  }, []);
 
-  const totalSales = processedOrders.reduce((total, order) =>
-    total + order.items.reduce((sum, item) => sum + item.quantity, 0), 0);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { startDate, endDate } = newReport;
+    if (startDate && endDate) {
+      try {
+        const res = await axios.post('/api/sales/reports', newReport);
+        setReports([...reports, res.data]);
+        setNewReport({ startDate: '', endDate: '', customerName: '', status: 'All' });
+        setError('');
+      } catch (err) {
+        console.error('Error generating report:', err.response?.data || err.message);
+        setError('Failed to generate report. Please check the input or backend server.');
+      }
+    } else {
+      setError('Start Date and End Date are required.');
+    }
+  };
 
-  const totalOrders = processedOrders.length;
-  const avgItems = totalOrders ? (totalSales / totalOrders).toFixed(2) : 0;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewReport({ ...newReport, [name]: value });
+  };
 
   return (
-    <div className="bg-white p-6 rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Sales Reporting</h2>
+    <div className="bg-white p-4 rounded shadow-md">
+      <h2 className="text-xl font-bold mb-2">Sales Reporting</h2>
+      <button
+        onClick={() => navigate('/sales')}
+        className="bg-gray-500 text-white px-4 py-2 rounded mb-4 hover:bg-gray-600"
+      >
+        ← Back to Sales
+      </button>
 
-      {/* Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-4">
-        <input
-          type="date"
-          value={fromDate}
-          onChange={(e) => setFromDate(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="date"
-          value={toDate}
-          onChange={(e) => setToDate(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <button
-          onClick={() => setSortByQty(!sortByQty)}
-          className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600"
-        >
-          {sortByQty ? "Unsort" : "Sort by Quantity"}
-        </button>
-      </div>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
+      {loading ? (
+        <p>Loading reports...</p>
+      ) : (
+        <>
+          <form onSubmit={handleSubmit} className="mt-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input
+                type="date"
+                name="startDate"
+                value={newReport.startDate}
+                onChange={handleChange}
+                className="border p-2 rounded"
+                required
+              />
+              <input
+                type="date"
+                name="endDate"
+                value={newReport.endDate}
+                onChange={handleChange}
+                className="border p-2 rounded"
+                required
+              />
+              <input
+                type="text"
+                name="customerName"
+                value={newReport.customerName}
+                onChange={handleChange}
+                placeholder="Customer Name (optional)"
+                className="border p-2 rounded"
+              />
+              <select
+                name="status"
+                value={newReport.status}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              >
+                <option value="All">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Paid">Paid</option>
+                <option value="Overdue">Overdue</option>
+              </select>
+            </div>
+            <button type="submit" className="bg-green-500 text-white p-2 rounded mt-4">
+              Generate Report
+            </button>
+          </form>
 
-      {/* Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mb-6">
-        <div className="bg-gray-100 p-4 rounded">
-          <p className="text-sm text-gray-600">Total Orders</p>
-          <p className="text-2xl font-bold">{totalOrders}</p>
-        </div>
-        <div className="bg-gray-100 p-4 rounded">
-          <p className="text-sm text-gray-600">Total Items Sold</p>
-          <p className="text-2xl font-bold">{totalSales}</p>
-        </div>
-        <div className="bg-gray-100 p-4 rounded">
-          <p className="text-sm text-gray-600">Avg. Items / Order</p>
-          <p className="text-2xl font-bold">{avgItems}</p>
-        </div>
-      </div>
-
-      {/* Sales Table */}
-      <table className="w-full table-auto border-collapse">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border px-4 py-2 text-left">Order ID</th>
-            <th className="border px-4 py-2 text-left">Date</th>
-            <th className="border px-4 py-2 text-left">Items</th>
-            <th className="border px-4 py-2 text-left">Total Qty</th>
-          </tr>
-        </thead>
-        <tbody>
-          {processedOrders.map(order => (
-            <tr key={order.id}>
-              <td className="border px-4 py-2">{order.id}</td>
-              <td className="border px-4 py-2">{order.date}</td>
-              <td className="border px-4 py-2">
-                {order.items.map((item, idx) => (
-                  <div key={idx}>
-                    {item.name} (x{item.quantity})
-                  </div>
-                ))}
-              </td>
-              <td className="border px-4 py-2">
-                {order.items.reduce((sum, item) => sum + item.quantity, 0)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {processedOrders.length === 0 && (
-        <p className="text-gray-500 mt-4 text-center">No orders found in selected date range.</p>
+          <h3 className="text-lg font-bold mt-4">Sales Reports</h3>
+          <table className="min-w-full bg-white border border-gray-300 mt-2">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2">Start Date</th>
+                <th className="border px-4 py-2">End Date</th>
+                <th className="border px-4 py-2">Customer</th>
+                <th className="border px-4 py-2">Status</th>
+                <th className="border px-4 py-2">Total Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(reports) && reports.length > 0 ? (
+                reports.map((report) => (
+                  <tr key={report._id}>
+                    <td className="border px-4 py-2">
+                      {new Date(report.startDate).toLocaleDateString()}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {new Date(report.endDate).toLocaleDateString()}
+                    </td>
+                    <td className="border px-4 py-2">{report.customerName || '-'}</td>
+                    <td className="border px-4 py-2">{report.status}</td>
+                    <td className="border px-4 py-2">${report.totalSales.toFixed(2)}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="border px-4 py-2 text-center">
+                    No reports found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </>
       )}
     </div>
   );
 };
 
 export default SalesReporting;
-     

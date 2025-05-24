@@ -1,102 +1,146 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const StockMonitoring = () => {
-  const [stockItems, setStockItems] = useState([
-    { id: 1, name: 'Item A', quantity: 50 },
-    { id: 2, name: 'Item B', quantity: 20 },
-    { id: 3, name: 'Item C', quantity: 5 },
-  ]);
-
-  const [newItem, setNewItem] = useState({
-    name: '',
+  const navigate = useNavigate();
+  const [stocks, setStocks] = useState([]);
+  const [newStock, setNewStock] = useState({
+    productName: '',
+    warehouse: '',
     quantity: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleAddItem = (e) => {
+  useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get('/api/inventory/stocks');
+        console.log('API response (stocks):', res.data);
+        setStocks(Array.isArray(res.data) ? res.data : []);
+        setError('');
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching stocks:', err.response?.data || err.message);
+        setError('Failed to load stocks. Please check the backend server.');
+        setStocks([]);
+        setLoading(false);
+      }
+    };
+    fetchStocks();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, quantity } = newItem;
-    if (name && quantity) {
-      const item = {
-        id: stockItems.length + 1,
-        name,
-        quantity: parseInt(quantity),
-      };
-      setStockItems([...stockItems, item]);
-      setNewItem({ name: '', quantity: '' }); // Reset form
+    const { productName, warehouse, quantity } = newStock;
+    if (productName && warehouse && quantity) {
+      try {
+        const res = await axios.post('/api/inventory/stocks', {
+          ...newStock,
+          quantity: parseInt(newStock.quantity) || 0,
+        });
+        setStocks([...stocks, res.data]);
+        setNewStock({ productName: '', warehouse: '', quantity: '' });
+        setError('');
+      } catch (err) {
+        console.error('Error adding stock:', err.response?.data || err.message);
+        setError('Failed to add stock. Please check the input or backend server.');
+      }
+    } else {
+      setError('Product Name, Warehouse, and Quantity are required.');
     }
   };
 
-  const handleDeleteItem = (id) => {
-    setStockItems(stockItems.filter(item => item.id !== id));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewStock({ ...newStock, [name]: value });
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow mb-6">
-      <h2 className="text-xl font-bold">Stock Monitoring</h2>
-      <form onSubmit={handleAddItem} className="mt-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            value={newItem.name}
-            onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-            placeholder="Item Name"
-            className="border p-2 rounded"
-            required
-          />
-          <input
-            type="number"
-            value={newItem.quantity}
-            onChange={(e) => setNewItem({ ...newItem, quantity: e.target.value })}
-            placeholder="Quantity"
-            className="border p-2 rounded"
-            required
-          />
-        </div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded mt-4">
-          Add Item
-        </button>
-      </form>
+    <div className="bg-white p-4 rounded shadow-md">
+      <h2 className="text-xl font-bold mb-2">Stock Monitoring</h2>
+      <button
+        onClick={() => navigate('/inventory')}
+        className="bg-gray-500 text-white px-4 py-2 rounded mb-4 hover:bg-gray-600"
+      >
+        ← Back to Inventory
+      </button>
 
-      {/* Stock Items Table */}
-      <h3 className="text-lg font-bold mt-4">Current Stock</h3>
-      <table className="min-w-full bg-white border border-gray-300 mt-2">
-        <thead>
-          <tr>
-            <th className="border px-4 py-2">Item Name</th>
-            <th className="border px-4 py-2">Quantity</th>
-            <th className="border px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {stockItems.map((item) => (
-            <tr key={item.id}>
-              <td className="border px-4 py-2">{item.name}</td>
-              <td className={`border px-4 py-2 ${item.quantity < 10 ? 'text-red-600' : ''}`}>
-                {item.quantity}
-              </td>
-              <td className="border px-4 py-2">
-                <button
-                  onClick={() => handleDeleteItem(item.id)}
-                  className="bg-red-500 text-white p-1 rounded"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Low Stock Alert */}
-      <h3 className="text-lg font-bold mt-4">Low Stock Alerts</h3>
-      {stockItems.filter(item => item.quantity < 10).length > 0 ? (
-        <ul className="mt-2 text-red-600">
-          {stockItems.filter(item => item.quantity < 10).map(item => (
-            <li key={item.id}>{item.name} (Current: {item.quantity})</li>
-          ))}
-        </ul>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
+      {loading ? (
+        <p>Loading stocks...</p>
       ) : (
-        <p className="text-green-600">All items are sufficiently stocked.</p>
+        <>
+          <form onSubmit={handleSubmit} className="mt-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <input
+                type="text"
+                name="productName"
+                value={newStock.productName}
+                onChange={handleChange}
+                placeholder="Product Name"
+                className="border p-2 rounded"
+                required
+              />
+              <input
+                type="text"
+                name="warehouse"
+                value={newStock.warehouse}
+                onChange={handleChange}
+                placeholder="Warehouse"
+                className="border p-2 rounded"
+                required
+              />
+              <input
+                type="number"
+                name="quantity"
+                value={newStock.quantity}
+                onChange={handleChange}
+                placeholder="Quantity"
+                className="border p-2 rounded"
+                min="0"
+                required
+              />
+            </div>
+            <button type="submit" className="bg-indigo-500 text-white p-2 rounded mt-4">
+              Add Stock
+            </button>
+          </form>
+
+          <h3 className="text-lg font-bold mt-4">Stock Levels</h3>
+          <table className="min-w-full bg-white border border-gray-300 mt-2">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2">Product</th>
+                <th className="border px-4 py-2">Warehouse</th>
+                <th className="border px-4 py-2">Quantity</th>
+                <th className="border px-4 py-2">Last Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(stocks) && stocks.length > 0 ? (
+                stocks.map((stock) => (
+                  <tr key={stock._id}>
+                    <td className="border px-4 py-2">{stock.productName}</td>
+                    <td className="border px-4 py-2">{stock.warehouse}</td>
+                    <td className="border px-4 py-2">{stock.quantity}</td>
+                    <td className="border px-4 py-2">
+                      {new Date(stock.updatedAt).toLocaleString()}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="border px-4 py-2 text-center">
+                    No stocks found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </>
       )}
     </div>
   );

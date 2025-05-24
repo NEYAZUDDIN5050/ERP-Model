@@ -8,39 +8,25 @@ import { AiOutlineTwitter } from 'react-icons/ai';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/auth/login',
-        {
-          email,
-          password,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
+        '/api/auth/login', // Updated to use proxy path
+        { email, password },
+        { headers: { 'Content-Type': 'application/json' } }
       );
-
       const { success, message, token } = response.data;
-
       console.log('Login response:', response.data);
-
       if (success) {
         localStorage.setItem('token', token);
         toast.success(message);
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 1000);
+        setTimeout(() => navigate('/dashboard'), 1000);
       } else {
         toast.error(message);
       }
-
-      // Clear form fields
       setEmail('');
       setPassword('');
     } catch (error) {
@@ -51,75 +37,91 @@ const Login = () => {
 
   return (
     <section
-      className="h-screen flex flex-col md:flex-row items-center justify-center bg-cover"
+      className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage:
-          "url('https://image.freepik.com/free-vector/vector-abstract-security-system-concept-with-fingerprint-technology-background_43778-497.jpg')",
+          "url('https://images.unsplash.com/photo-1553356085-576c43617024?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
       }}
     >
-      {/* Left Section */}
-      <div className="md:w-1/2 p-8 flex flex-col items-center text-center">
-        <h1 className="text-3xl font-bold mt-80 text-white">Welcome Back!</h1>
-        <p className="text-sm mt-2 text-gray-300">
-          Securely log in to manage your business with BizERP.
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      {/* Left Section - Welcome Text */}
+      <div className="relative z-10 md:w-1/2 p-4 sm:p-8 flex flex-col items-center text-center text-white">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-500">
+          Welcome Back to BizERP
+        </h1>
+        <p className="text-sm sm:text-base md:text-lg text-gray-200 max-w-md">
+          Log in to securely manage your business operations with our powerful ERP system.
         </p>
-        <Link to="/" className="mt-6 inline-block text-blue-400 underline">
+        <Link
+          to="/"
+          className="mt-6 text-indigo-300 hover:text-indigo-100 underline transition-colors duration-300"
+        >
           ← Back to Home
         </Link>
       </div>
 
       {/* Right Section - Form */}
-      <div className="md:w-100 p-8">
+      <div className="relative z-10 w-full max-w-md p-4 sm:p-8">
         <form
           onSubmit={handleSubmit}
-          className="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto w-full"
+          className="bg-white/95 backdrop-blur-sm shadow-2xl rounded-2xl p-6 sm:p-8 w-full transform transition-all duration-300 hover:shadow-xl"
         >
-          <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-800">
+            Login
+          </h2>
 
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border p-2 mb-3 w-full rounded"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border p-2 mb-3 w-full rounded"
-            required
-          />
+          <div className="mb-4">
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-300"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border border-gray-300 p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors duration-300"
+              required
+            />
+          </div>
           <button
             type="submit"
-            className="bg-blue-600 text-white p-2 rounded w-full hover:bg-blue-700 transition"
+            className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-3 rounded-lg w-full hover:from-indigo-700 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
           >
             Login
           </button>
 
-          <div className="flex justify-between mt-4 text-sm">
-            <Link to="#" className="text-blue-600 underline">
+          <div className="flex justify-between mt-4 text-sm text-gray-600">
+            <Link to="#" className="hover:text-indigo-600 underline transition-colors duration-300">
               Forgot Password?
             </Link>
-            <Link to="/register" className="text-blue-600 underline">
+            <Link to="/register" className="hover:text-indigo-600 underline transition-colors duration-300">
               Create Account
             </Link>
           </div>
 
-          <div className="flex items-center justify-center mt-5 gap-4">
+          <div className="flex items-center justify-center mt-6 gap-4">
             <button
               type="button"
-              className="h-9 w-9 rounded-full bg-gray-700 hover:bg-gray-800 text-white flex items-center justify-center"
+              className="h-10 w-10 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition-colors duration-300"
+              aria-label="Login with Facebook"
             >
-              <BiLogoFacebook size={20} />
+              <BiLogoFacebook size={22} />
             </button>
             <button
               type="button"
-              className="h-9 w-9 rounded-full bg-gray-700 hover:bg-gray-800 text-white flex items-center justify-center"
+              className="h-10 w-10 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center transition-colors duration-300"
+              aria-label="Login with Twitter"
             >
-              <AiOutlineTwitter size={20} />
+              <AiOutlineTwitter size={22} />
             </button>
           </div>
         </form>
@@ -129,4 +131,3 @@ const Login = () => {
 };
 
 export default Login;
-

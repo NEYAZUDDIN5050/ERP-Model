@@ -9,7 +9,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gradient-to-b from-gray-800 to-gray-900 text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg">
+    <div className="bg-gradient-to-b from-gray-700 to-gray-900 text-white w-64 min-h-screen fixed top-0 left-0 flex flex-col shadow-lg">
       {/* Logo/Title */}
       <div className="p-4 text-2xl font-extrabold text-center bg-gradient-to-r from-cyan-500 to-blue-600 text-transparent bg-clip-text">
         ERP Dashboard

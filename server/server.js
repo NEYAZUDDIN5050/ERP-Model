@@ -14,6 +14,12 @@ import transactionRoutes from './routes/transactionRoutes.js';
 import reportRoutes from './routes/reportRoutes.js';
 import invoiceRoutes from './routes/invoiceRoutes.js';
 import bankAccountRoutes from './routes/bankAccountRoutes.js';
+import deliveryRoutes from './routes/deliveryRoutes.js';
+import inventoryMovementRoutes from './routes/inventoryMovementRoutes.js';
+import vendorRoutes from './routes/vendorRoutes.js';
+import crmRoutes from './routes/crmRoutes.js';
+import salesRoutes from './routes/salesRoutes.js';
+import inventoryRoutes from './routes/inventoryRoutes.js';
 
 dotenv.config();
 
@@ -39,6 +45,12 @@ app.use('/api/transactions', transactionRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/bank-accounts', bankAccountRoutes);
+app.use('/api/deliveries', deliveryRoutes);
+app.use('/api/inventory-movements', inventoryMovementRoutes);
+app.use('/api/vendors', vendorRoutes);
+app.use('/api/crm', crmRoutes);
+app.use('/api/sales', salesRoutes);
+app.use('/api/inventory', inventoryRoutes);
 
 app.get('/', (req, res) => {
   res.send('🚀 ERP Backend is running');
