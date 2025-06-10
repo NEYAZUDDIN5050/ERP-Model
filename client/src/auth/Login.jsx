@@ -8,18 +8,33 @@ import { AiOutlineTwitter } from 'react-icons/ai';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading state
+
+    // Trim inputs to avoid sending malformed data
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    // Basic client-side validation
+    if (!trimmedEmail || !trimmedPassword) {
+      toast.error('Please provide both email and password');
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
-        '/api/auth/login', // Updated to use proxy path
-        { email, password },
+        '/api/auth/login', // Ensure this matches your backend route
+        { email: trimmedEmail, password: trimmedPassword },
         { headers: { 'Content-Type': 'application/json' } }
       );
       const { success, message, token } = response.data;
       console.log('Login response:', response.data);
+
       if (success) {
         localStorage.setItem('token', token);
         toast.success(message);
@@ -30,8 +45,10 @@ const Login = () => {
       setEmail('');
       setPassword('');
     } catch (error) {
-      console.error('Login error:', error.response?.data);
-      toast.error(error.response?.data?.message || 'Login failed');
+      console.error('Login error:', error.response?.data || error.message);
+      toast.error(error.response?.data?.message || 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false); // Reset loading state
     }
   };
 
@@ -43,10 +60,8 @@ const Login = () => {
           "url('https://images.unsplash.com/photo-1553356085-576c43617024?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
       }}
     >
-      {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* Left Section - Welcome Text */}
       <div className="relative z-10 md:w-1/2 p-4 sm:p-8 flex flex-col items-center text-center text-white">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-blue-500">
           Welcome Back to BizERP
@@ -62,7 +77,6 @@ const Login = () => {
         </Link>
       </div>
 
-      {/* Right Section - Form */}
       <div className="relative z-10 w-full max-w-md p-4 sm:p-8">
         <form
           onSubmit={handleSubmit}
@@ -94,9 +108,12 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-3 rounded-lg w-full hover:from-indigo-700 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            disabled={isLoading} // Disable button during loading
+            className={`bg-gradient-to-r from-indigo-600 to-blue-600 text-white p-3 rounded-lg w-full hover:from-indigo-700 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
+              isLoading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
           >
-            Login
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
 
           <div className="flex justify-between mt-4 text-sm text-gray-600">

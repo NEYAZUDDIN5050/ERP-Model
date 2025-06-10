@@ -11,8 +11,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Email is required'],
     unique: true,
+    lowercase: true, // Enforce lowercase for consistency with normalizeEmail
     trim: true,
-    match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email'],
+    match: [
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      'Please enter a valid email address',
+    ],
   },
   password: {
     type: String,
@@ -21,7 +25,10 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['employee', 'manager', 'admin'],
+    enum: {
+      values: ['employee', 'manager', 'admin'],
+      message: '{VALUE} is not a valid role',
+    },
     default: 'employee',
   },
   createdAt: {
@@ -29,6 +36,9 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// Create index for email to improve query performance
+userSchema.index({ email: 1 }, { unique: true });
 
 // Hash password before saving
 userSchema.pre('save', async function (next) {
@@ -40,16 +50,18 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
+    console.error('Password hashing error:', error.message); // Log for debugging
     next(error);
   }
 });
 
-// Define comparePassword method
-userSchema.methods.comparePassword = async function (password) {
+// Compare password method
+userSchema.methods.comparePassword = async function (candidatePassword) {
   try {
-    return await bcrypt.compare(password, this.password);
+    return await bcrypt.compare(candidatePassword, this.password);
   } catch (error) {
-    throw new Error('Password comparison failed');
+    console.error('Password comparison error:', error.message); // Log for debugging
+    throw new Error('Invalid credentials'); // Generic error for security
   }
 };
 

@@ -5,7 +5,6 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -36,6 +35,7 @@ const Navbar = () => {
             ))}
           </div>
 
+
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button onClick={toggleMenu} className="text-gray-700 hover:text-cyan-500 focus:outline-none">
@@ -65,11 +65,10 @@ const Navbar = () => {
               </button>
             ))}
           </div>
-        )}
+        )};
       </div>
     </nav>
   );
 };
 
 export default Navbar;
-

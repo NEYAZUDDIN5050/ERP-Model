@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const router = express.Router();
-
-// Signup Route
+//num.length its use in it...  and length of all the array tags are there.... the lenght of the 
+// Signup Route 
 router.post('/signup', async (req, res) => {
   const { name, email, password, role } = req.body;
 

@@ -16,7 +16,7 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation Links */}
-      <ul className="flex-1 mt-4">
+      <ul className="flex-1 mt-12">
         {[
           { to: '/Home', label: 'Home', icon: IoHomeSharp },
           { to: '/About', label: 'About', icon: BsColumnsGap },
