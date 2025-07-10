@@ -5,7 +5,7 @@
 BizERP is a responsive and modern **Enterprise Resource Planning (ERP)** system designed to help businesses manage operations efficiently. With 6 integrated modules, it allows companies to streamline processes like customer management, sales, HR, inventory, finance, and supply chain — all in one place.
 
 ---
-<img width="915" height="857" alt="766428c0-0429-4543-b32d-515d5e261005" src="https://github.com/user-attachments/assets/d9201a9a-ee99-4d4a-91e5-ec9694770181" />
+<img width="615" height="457" alt="766428c0-0429-4543-b32d-515d5e261005" src="https://github.com/user-attachments/assets/d9201a9a-ee99-4d4a-91e5-ec9694770181" />
 
 ## 📸 Screenshots
 
@@ -14,10 +14,12 @@ BizERP is a responsive and modern **Enterprise Resource Planning (ERP)** system 
 
 
 ### 🖼 Modules Overview  
-![Modules](./screenshots/modules.png)
+![Modules]<img width="1866" height="873" alt="11d89152-b32f-4ff4-add1-b075645a6c00" src="https://github.com/user-attachments/assets/f9d5e670-7e50-425a-99b8-d18db69b2e55" />
+()
 
 ### 🖼 Registration Page  
-![Register](./screenshots/register.png)
+![Register]( <img width="1849" height="863" alt="aff02a22-1e34-4bc4-9bcf-ccbf7d2833df" src="https://github.com/user-attachments/assets/db9941d9-507c-491e-820e-8f754278c57b" />
+ )
 
 > 📱 All screens are fully responsive and adapt beautifully to desktop, tablet, and mobile.
 
