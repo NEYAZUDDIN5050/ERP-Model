@@ -10,15 +10,15 @@ BizERP is a responsive and modern **Enterprise Resource Planning (ERP)** system 
 ## 📸 Screenshots
 
 ### 🖼 Hero Section  
-![Hero]()<img width="915" height="857" alt="766428c0-0429-4543-b32d-515d5e261005" src="https://github.com/user-attachments/assets/2171088f-e677-472c-8f17-4fc1d9c7e743" />
+![Hero]()<img width="615" height="457" alt="766428c0-0429-4543-b32d-515d5e261005" src="https://github.com/user-attachments/assets/2171088f-e677-472c-8f17-4fc1d9c7e743" />
 
 
 ### 🖼 Modules Overview  
-![Modules]<img width="1866" height="873" alt="11d89152-b32f-4ff4-add1-b075645a6c00" src="https://github.com/user-attachments/assets/f9d5e670-7e50-425a-99b8-d18db69b2e55" />
+![Modules]<img width="666" height="473" alt="11d89152-b32f-4ff4-add1-b075645a6c00" src="https://github.com/user-attachments/assets/f9d5e670-7e50-425a-99b8-d18db69b2e55" />
 ()
 
 ### 🖼 Registration Page  
-![Register]( <img width="1849" height="863" alt="aff02a22-1e34-4bc4-9bcf-ccbf7d2833df" src="https://github.com/user-attachments/assets/db9941d9-507c-491e-820e-8f754278c57b" />
+![Register]( <img width="649" height="463" alt="aff02a22-1e34-4bc4-9bcf-ccbf7d2833df" src="https://github.com/user-attachments/assets/db9941d9-507c-491e-820e-8f754278c57b" />
  )
 
 > 📱 All screens are fully responsive and adapt beautifully to desktop, tablet, and mobile.
