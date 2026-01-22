@@ -1,0 +1,89 @@
+| Test Case ID | Test Scenario                     | Test Steps                                                                      | Expected Result                                               | Priority |
+| ------------ | --------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------- | -------- |
+| TC_AUTH_001  | User Registration with Valid Data | 1. Navigate to registration page2. Enter name, email, password3. Click Register | User registered, JWT token generated, redirected to dashboard | High     |
+| TC_AUTH_002  | Login with Valid Credentials      | 1. Navigate to login page2. Enter valid email and password3. Click Login        | User authenticated, JWT token stored, dashboard displayed     | High     |
+| TC_AUTH_003  | Login with Invalid Credentials    | 1. Enter incorrect password2. Click Login                                       | Error message: 'Invalid credentials' displayed                | High     |
+| TC_AUTH_004  | Password Visibility Toggle        | 1. Enter password2. Click eye icon                                              | Password visibility toggles between hidden and visible        | Medium   |
+| TC_AUTH_005  | Form Validation on Empty Fields   | 1. Leave fields empty2. Click Register/Login                                    | Validation errors displayed for required fields               | High     |
+| TC_AUTH_006  | JWT Token Expiration              | 1. Login and wait for token expiry2. Try to access protected route              | User redirected to login page                                 | High     |
+
+
+| Test Case ID | Test Scenario                 | Test Steps                                                                      | Expected Result                                        | Priority |
+| ------------ | ----------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------ | -------- |
+| TC_CRM_001   | Add New Customer              | 1. Navigate to CRM module2. Click 'Add Customer'3. Fill customer details4. Save | Customer added to database, displayed in customer list | High     |
+| TC_CRM_002   | View Customer Details         | 1. Open CRM module2. Click on customer name                                     | Customer details displayed with complete information   | High     |
+| TC_CRM_003   | Update Customer Information   | 1. Select customer2. Edit details3. Save changes                                | Customer information updated in MongoDB                | Medium   |
+| TC_CRM_004   | Track Customer Leads          | 1. Navigate to Leads section2. Add new lead3. Update lead status                | Lead tracked with status updates, engagement logged    | High     |
+| TC_CRM_005   | Search Customer by Name/Email | 1. Enter search term in search box2. Press Enter                                | Matching customers displayed in results                | Medium   |
+
+
+| Test Case ID | Test Scenario                  | Test Steps                                                                             | Expected Result                                            | Priority |
+| ------------ | ------------------------------ | -------------------------------------------------------------------------------------- | ---------------------------------------------------------- | -------- |
+| TC_SALES_001 | Create New Sales Order         | 1. Open Sales module2. Click 'New Order'3. Select customer and products4. Submit order | Sales order created, inventory updated, order ID generated | High     |
+| TC_SALES_002 | View Sales Transaction History | 1. Navigate to Sales History2. Select date range                                       | All sales transactions displayed with details              | High     |
+| TC_SALES_003 | Update Order Status            | 1. Select order2. Change status (Pending → Processing → Completed)                     | Order status updated, customer notified                    | High     |
+| TC_SALES_004 | Generate Sales Invoice         | 1. Select completed order2. Click 'Generate Invoice'                                   | Invoice generated with order details and amounts           | High     |
+| TC_SALES_005 | Cancel Sales Order             | 1. Select order2. Click Cancel3. Confirm cancellation                                  | Order cancelled, inventory restored                        | Medium   |
+
+
+| Test Case ID | Test Scenario             | Test Steps                                                                                      | Expected Result                                       | Priority |
+| ------------ | ------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------- |
+| TC_FIN_001   | Record Payment Receipt    | 1. Open Finance module2. Click 'Add Payment'3. Enter payment details4. Save                     | Payment recorded in database, account balance updated | High     |
+| TC_FIN_002   | Generate Financial Report | 1. Navigate to Reports2. Select report type (P&L, Balance Sheet)3. Choose date range4. Generate | Financial report generated with accurate calculations | High     |
+| TC_FIN_003   | Track Expenses            | 1. Click 'Add Expense'2. Enter expense details3. Submit                                         | Expense recorded, reflected in financial statements   | Medium   |
+| TC_FIN_004   | View Account Balance      | 1. Open Finance Dashboard2. Check account balances                                              | Current balance displayed for all accounts            | High     |
+| TC_FIN_005   | Reconcile Bank Statement  | 1. Upload bank statement2. Match transactions3. Mark as reconciled                              | Transactions matched and reconciled successfully      | Medium   |
+
+
+| Test Case ID | Test Scenario               | Test Steps                                                                                   | Expected Result                                              | Priority |
+| ------------ | --------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------- |
+| TC_HR_001    | Add New Employee            | 1. Navigate to HR module2. Click 'Add Employee'3. Fill employee details4. Assign role5. Save | Employee added to system, employee ID generated              | High     |
+| TC_HR_002    | Update Employee Information | 1. Select employee2. Edit details (phone, address, role)3. Save                              | Employee data updated in MongoDB                             | Medium   |
+| TC_HR_003    | Process Payroll             | 1. Navigate to Payroll2. Select month3. Calculate salaries4. Process payment                 | Payroll calculated, payment records created                  | High     |
+| TC_HR_004    | View Employee Attendance    | 1. Open Attendance section2. Select employee and date range                                  | Attendance records displayed with present/absent days        | Medium   |
+| TC_HR_005    | Assign Organizational Role  | 1. Select employee2. Choose role from dropdown3. Save assignment                             | Role assigned, reflected in employee profile and permissions | High     |
+
+
+| Test Case ID | Test Scenario                | Test Steps                                                                                        | Expected Result                                         | Priority |
+| ------------ | ---------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | -------- |
+| TC_INV_001   | Add New Product to Inventory | 1. Open Inventory module2. Click 'Add Product'3. Enter product details4. Set initial stock5. Save | Product added to inventory, stock level tracked         | High     |
+| TC_INV_002   | Update Stock Levels          | 1. Select product2. Update quantity (add/subtract)3. Save changes                                 | Stock level updated in database, reflected in inventory | High     |
+| TC_INV_003   | Track Stock Movements        | 1. Navigate to Stock Movements2. View transaction log                                             | All stock in/out transactions displayed with timestamps | Medium   |
+| TC_INV_004   | Low Stock Alert              | 1. Set minimum stock level2. Stock falls below threshold                                          | Low stock alert displayed on dashboard                  | High     |
+| TC_INV_005   | Generate Inventory Report    | 1. Click 'Reports'2. Select inventory report type3. Generate                                      | Report generated with current stock levels and values   | Medium   |
+
+
+| Test Case ID | Test Scenario                      | Test Steps                                                                           | Expected Result                                     | Priority |
+| ------------ | ---------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------- | -------- |
+| TC_SCM_001   | Create Purchase Order              | 1. Open SCM module2. Click 'New Purchase Order'3. Select supplier and items4. Submit | Purchase order created, supplier notified           | High     |
+| TC_SCM_002   | Track Shipment Status              | 1. Navigate to Shipments2. Select shipment3. View status updates                     | Real-time shipment tracking displayed               | High     |
+| TC_SCM_003   | Manage Supplier Information        | 1. Go to Suppliers section2. Add/Edit supplier details3. Save                        | Supplier information stored, accessible for orders  | Medium   |
+| TC_SCM_004   | Optimize Logistics Route           | 1. Enter delivery locations2. Click 'Optimize Route'                                 | Optimized route displayed with distance and time    | Low      |
+| TC_SCM_005   | Receive Goods and Update Inventory | 1. Mark PO as received2. Confirm quantities3. Update inventory                       | Inventory updated automatically, PO marked complete | High     |
+
+
+| Test Case ID | Test Scenario            | Test Steps                                            | Expected Result                                            | Priority |
+| ------------ | ------------------------ | ----------------------------------------------------- | ---------------------------------------------------------- | -------- |
+| TC_DASH_001  | View Dashboard Widgets   | 1. Login to system2. View dashboard                   | Dashboard displays KPIs: sales, inventory, finance metrics | High     |
+| TC_DASH_002  | Real-time Data Updates   | 1. Create transaction in any module2. Check dashboard | Dashboard metrics update in real-time                      | Medium   |
+| TC_DASH_003  | Export Report to CSV/PDF | 1. Generate report2. Click Export3. Select format     | Report downloaded in selected format                       | Low      |
+
+
+| Test Case ID | Test Scenario                              | Test Steps                                              | Expected Result                                                  | Priority |
+| ------------ | ------------------------------------------ | ------------------------------------------------------- | ---------------------------------------------------------------- | -------- |
+| TC_UI_001    | Responsive Design on Mobile (320px-768px)  | 1. Open app on mobile device2. Navigate through modules | All modules responsive, navigation accessible via hamburger menu | High     |
+| TC_UI_002    | Responsive Design on Tablet (768px-1024px) | 1. Open app on tablet2. Test module interactions        | Layout adapts properly, all features functional                  | Medium   |
+| TC_UI_003    | Navbar Navigation                          | 1. Click each navbar item2. Verify navigation           | Each module loads correctly via navbar                           | High     |
+| TC_UI_004    | Chakra UI Components Rendering             | 1. Open various modules2. Verify UI components          | All Chakra UI components render properly with Tailwind styling   | Medium   |
+
+| Test Case ID | Test Scenario                    | Test Steps                                                      | Expected Result                                       | Priority 
+| ------------ | -------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------- | -------- |
+| TC_REDUX_001 | State Persistence Across Modules | 1. Login2. Navigate between modules3. Check user state          | User state persists across all modules                | High     |
+| TC_REDUX_002 | Cart/Order State Management      | 1. Add items to cart in Sales2. Navigate away3. Return to Sales | Cart state maintained, items still present            | Medium   |
+| TC_REDUX_003 | Global Error State Handling      | 1. Trigger API error2. Check error display                      | Error state managed globally, error message displayed | High     |
+| Test Case ID | Test Scenario                                 | Test Steps                                                 | Expected Result                                | Priority |
+
+| ------------ | --------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------- | -------- |
+| TC_SEC_001   | Access Protected Route Without Authentication | 1. Logout2. Try to access /dashboard directly              | Redirected to login page                       | High     |
+| TC_SEC_002   | Role-Based Access Control                     | 1. Login as regular user2. Try to access admin-only module | Access denied, appropriate error message shown | High     |
+| TC_SEC_003   | XSS Prevention in Input Fields                | 1. Enter script tags in form fields2. Submit               | Script sanitized, not executed                 | High     |
