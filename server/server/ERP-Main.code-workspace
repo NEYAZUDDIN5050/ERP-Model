@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../../ERP-Main"
+		},
+		{
+			"path": "../../client"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}
