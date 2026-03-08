@@ -1,72 +1,92 @@
 import React from 'react';
-import { FaTwitter, FaLinkedin, FaGithub } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { FaTwitter, FaLinkedin, FaGithub } from 'react-icons/fa';
 
-const Footer = () => {
+const Footer = ({ sidebarWidth = 240 }) => {
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-gray-700 text-white py-8 mt-auto w-285 ml-64">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <div>
-            <h3 className="text-lg font-semibold text-cyan-400 mb-4">Business ERP</h3>
-            <p className="text-sm text-gray-300">
-              Empowering businesses with seamless enterprise resource planning solutions.
-            </p>
-          </div>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
 
-          {/* Navigation Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-cyan-400 mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {[
-                { label: 'Home', to: '/Home' },
-                { label: 'About', to: '/About' },
-                { label: 'Finance', to: '/finance' },
-                { label: 'Support', to: '/support' },
-              ].map((item, index) => (
-                <li key={index}>
-                  <Link
-                    to={item.to}
-                    className="text-sm text-gray-300 hover:text-cyan-400 transition-colors duration-200"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        .dash-footer {
+          font-family: 'DM Sans', sans-serif;
+          border-top: 1px solid rgba(255,255,255,0.05);
+          background: #09080f;
+          padding: 1.25rem 2rem;
+          margin-left: ${sidebarWidth}px;
+          transition: margin-left 0.3s cubic-bezier(0.4,0,0.2,1);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
 
-          {/* Social Media */}
-          <div>
-            <h3 className="text-lg font-semibold text-cyan-400 mb-4">Connect With Us</h3>
-            <div className="flex space-x-4">
-              {[
-                { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
-                { icon: FaLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-                { icon: FaGithub, href: 'https://github.com', label: 'GitHub' },
-              ].map((item, index) => (
-                <a
-                  key={index}
-                  href={item.href}
-                  aria-label={item.label}
-                  className="text-gray-300 hover:text-cyan-400 transition-colors duration-200"
-                >
-                  <item.icon className="w-6 h-6" />
-                </a>
-              ))}
-            </div>
-          </div>
+        .footer-copy {
+          font-size: 0.78rem;
+          color: rgba(255,255,255,0.2);
+        }
+
+        .footer-links {
+          display: flex; gap: 1.25rem; align-items: center;
+        }
+        .footer-links a {
+          font-size: 0.78rem;
+          color: rgba(255,255,255,0.25);
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+        .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+        .footer-socials {
+          display: flex; gap: 0.5rem; align-items: center;
+        }
+        .footer-social-btn {
+          width: 28px; height: 28px; border-radius: 7px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.07);
+          display: flex; align-items: center; justify-content: center;
+          color: rgba(255,255,255,0.25);
+          text-decoration: none;
+          transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .footer-social-btn:hover {
+          background: rgba(255,255,255,0.07);
+          color: rgba(255,255,255,0.7);
+          border-color: rgba(255,255,255,0.14);
+        }
+      `}</style>
+
+      <footer className="dash-footer">
+        <span className="footer-copy">
+          © {new Date().getFullYear()} BizERP. All rights reserved.
+        </span>
+
+        <div className="footer-links">
+          {[
+            ['Home', '/'],
+            ['Finance', '/finance'],
+            ['Support', '/support'],
+            ['Privacy', '/privacy'],
+          ].map(([label, to]) => (
+            <Link key={label} to={to}>{label}</Link>
+          ))}
         </div>
 
-        {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p className="text-sm text-gray-300">
-            © {new Date().getFullYear()} Business ERP. All rights reserved.
-          </p>
+        <div className="footer-socials">
+          {[
+            { href: 'https://twitter.com',  icon: <FaTwitter size={12} />,  label: 'Twitter'  },
+            { href: 'https://linkedin.com', icon: <FaLinkedin size={12} />, label: 'LinkedIn' },
+            { href: 'https://github.com',   icon: <FaGithub size={12} />,   label: 'GitHub'   },
+          ].map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+              className="footer-social-btn" aria-label={s.label}>
+              {s.icon}
+            </a>
+          ))}
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 };
 

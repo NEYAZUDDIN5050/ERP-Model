@@ -3,9 +3,20 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const router = express.Router();
-//num.length its use in it...  and length of all the array tags are there.... the lenght of the 
+
+// Add debug logging
+console.log('✅ Auth routes file loaded successfully');
+
+// Test route to verify routes are working
+router.get('/test', (req, res) => {
+  console.log('🧪 Test route hit successfully');
+  res.json({ success: true, message: 'Auth routes are working!' });
+});
+
 // Signup Route 
 router.post('/signup', async (req, res) => {
+  console.log('🚀 Signup route hit with body:', req.body);
+  
   const { name, email, password, role } = req.body;
 
   try {
@@ -25,9 +36,11 @@ router.post('/signup', async (req, res) => {
     await user.save();
 
     // Generate JWT
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET || 'your_jwt_secret', {
-      expiresIn: '1h',
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role }, 
+      process.env.JWT_SECRET || 'your_jwt_secret', 
+      { expiresIn: '1h' }
+    );
 
     res.status(201).json({
       success: true,
@@ -43,6 +56,8 @@ router.post('/signup', async (req, res) => {
 
 // Login Route
 router.post('/login', async (req, res) => {
+  console.log('🔑 Login route hit with email:', req.body.email);
+  
   const { email, password } = req.body;
 
   try {
@@ -66,9 +81,11 @@ router.post('/login', async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET || 'your_jwt_secret', {
-      expiresIn: '1h',
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role }, 
+      process.env.JWT_SECRET || 'your_jwt_secret', 
+      { expiresIn: '1h' }
+    );
 
     res.status(200).json({
       success: true,
@@ -81,5 +98,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });
+
+console.log('✅ All auth routes defined successfully');
 
 export default router;

@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
-    lowercase: true, // Enforce lowercase for consistency with normalizeEmail
+    unique: true, // This already creates the index — no need for userSchema.index()
+    lowercase: true,
     trim: true,
     match: [
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
@@ -37,8 +37,9 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Create index for email to improve query performance
-userSchema.index({ email: 1 }, { unique: true });
+// ❌ REMOVED: userSchema.index({ email: 1 }, { unique: true });
+// Reason: The `unique: true` on the email field above already creates this index.
+// Defining it again with schema.index() caused the Mongoose duplicate index warning.
 
 // Hash password before saving
 userSchema.pre('save', async function (next) {
@@ -50,7 +51,7 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
-    console.error('Password hashing error:', error.message); // Log for debugging
+    console.error('Password hashing error:', error.message);
     next(error);
   }
 });
@@ -60,8 +61,8 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   try {
     return await bcrypt.compare(candidatePassword, this.password);
   } catch (error) {
-    console.error('Password comparison error:', error.message); // Log for debugging
-    throw new Error('Invalid credentials'); // Generic error for security
+    console.error('Password comparison error:', error.message);
+    throw new Error('Invalid credentials');
   }
 };
 
